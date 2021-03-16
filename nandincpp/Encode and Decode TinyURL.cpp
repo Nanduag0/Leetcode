@@ -2,11 +2,15 @@ class Solution {
 public:
     
     map<string, string> shortening_api;
+    string alphabets = "abcdefghijklmnopqrstuvwxyzQWERTYUIOPLKJHGFDSAZXCVBNM1234567890";
     
     // Encodes a URL to a shortened URL.
     string encode(string longUrl)
     {
-        string shortUrl = "bitly.com/" + shortening_api.size();
+        random_shuffle(alphabets.begin(), alphabets.end());
+        string xx = alphabets.substr(0, 5);
+        
+        string shortUrl = "bitly.com/" + xx;
         shortening_api.insert({shortUrl, longUrl});
         
         return shortUrl;
