@@ -12,7 +12,7 @@ public:
             {
                 if(a[j]+j >= i)
                 {
-                    ans[i] = 1 + +ans[j];
+                    ans[i] = 1 + ans[j];
                 }
             }
         }
