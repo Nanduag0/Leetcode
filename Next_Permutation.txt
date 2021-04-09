@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) 
+    {
+        int minim=INT_MAX;
+        int j=0;
+        int i=nums.size()-1;
+        bool flag=false;
+        vector<int> :: iterator it;
+        while(i>0)
+        {
+            if(nums[i]>nums[i-1])
+            {
+                flag=true;
+                j=i-1;
+                break;
+            }
+            i--;
+        }
+        if(flag)
+        {
+            for(int k=j+1;k<nums.size();k++)
+            {
+                if(nums[k]==nums[j])
+                {
+                    continue;
+                }
+                if(abs(nums[k]-nums[j])<=minim && nums[k]>nums[j])
+                {
+                     it=find(nums.begin()+j,nums.end(),nums[k]);
+                     minim=abs(nums[k]-nums[j]);
+                }
+            }
+            if(minim==INT_MAX)
+            {
+                it=find(nums.begin()+j+1,nums.end(),nums[j]);
+            }
+           
+            swap(nums[j],nums[distance(nums.begin(),it)]);
+            sort(nums.begin()+j+1,nums.end());
+        }
+        else
+        {
+            sort(nums.begin(),nums.end());
+        }
+    }
+};

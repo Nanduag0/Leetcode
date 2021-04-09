@@ -1,0 +1,43 @@
+int countRev (string s)
+{
+    // your code here
+      // your code here
+    stack<char> ss;
+    int i=0;
+    while(i<s.length())
+    {
+        if(ss.empty())
+        {
+            ss.push(s[i]);
+        }
+        else
+        if(s[i]=='}')
+        {
+            if(ss.top()=='{')
+            {
+                ss.pop();
+            }
+            else
+            ss.push(s[i]);
+        }
+        else
+        ss.push(s[i]);
+        i++;
+    }
+       if(ss.size()&1)
+        {
+            return -1;
+        }
+        int n=ss.size();
+        //cout<<n;
+        int count=0;
+        while(!(ss.empty()))
+        {
+            if(ss.top()=='{')
+            count++;
+            ss.pop();
+        }
+        //cout<<count;
+        return ceil(n/2)+ceil(count%2);
+        
+}

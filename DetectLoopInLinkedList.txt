@@ -1,0 +1,21 @@
+class Solution
+{
+    public:
+    //Function to check if the linked list has a loop.
+    bool detectLoop(Node* head)
+    {
+        Node* hare=head,*tortoise=head;
+        while(hare && tortoise && hare->next!=NULL)
+        {
+            hare=hare->next->next;
+            tortoise=tortoise->next;
+            if(hare==tortoise)
+            {
+                return true;
+            }
+        }
+        return false;
+        
+        // your code here
+    }
+};

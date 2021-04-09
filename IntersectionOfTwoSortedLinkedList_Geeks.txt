@@ -1,0 +1,42 @@
+Node* findIntersection(Node* head1, Node* head2)
+{
+    // Your Code Here
+    if(head1==NULL || head2==NULL)
+    {
+        return head1;
+        
+    }
+    vector<int> vec;
+    Node *temp=head1;
+    while(temp!=NULL)
+    {
+        vec.push_back(temp->data);
+        temp=temp->next;
+    }
+    Node *temp1=head2 ;
+    set<int>  ans;
+    set<int> :: iterator itr;
+    while(temp1!=NULL)
+    {
+        if(find(vec.begin(),vec.end(),temp1->data)!=vec.end())
+        {
+            ans.insert(temp1->data);
+        }
+        temp1=temp1->next;
+    }
+    itr=ans.begin();
+    Node *node=new Node(*itr);
+    itr++;
+    Node *head=node;
+    Node *tep=node;
+    while(itr!=ans.end())
+    {
+        node=new Node(*itr);
+        itr++;
+        tep->next=node;
+        tep=tep->next;
+        
+    }
+    return head;
+    
+}
