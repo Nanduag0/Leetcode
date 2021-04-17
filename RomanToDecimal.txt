@@ -1,0 +1,24 @@
+int romanToDecimal(string &str)
+{
+    map<char,int> mp;
+    mp.insert({'I',1});
+    mp.insert({'V',5});
+    mp.insert({'X',10});
+    mp.insert({'L',50});
+    mp.insert({'C',100});
+    mp.insert({'D',500});
+    mp.insert({'M',1000});
+    int result=0;
+    for(int i=0;i<str.length()-1;i++)
+    {
+        if(mp[str[i]]>=mp[str[i+1]])
+        result+=mp[str[i]];
+        else
+        result-=mp[str[i]];
+        
+    }
+    result+=mp[str[str.length()-1]];
+    return result;
+    
+    // code here
+}

@@ -1,0 +1,41 @@
+using namespace std;
+#include<bits/stdc++.h>
+
+class Solution{
+  public:
+    // This function returns true if str1 and str2 are ismorphic
+    // else returns false
+    bool areIsomorphic(string str1, string str2)
+    {
+        if(str1.length()!=str2.length())
+        return false;
+        
+        map<char,char> mp;
+        map<char,char> :: iterator itr,it;
+        for(int i=0;i<str1.length();i++)
+        {
+            it=mp.begin();
+            itr=mp.find(str1[i]);
+            if(itr==mp.end())
+            {
+                while(it!=mp.end())
+                {
+                    if(it->second==str2[i])
+                    return false;
+                    it++;
+                }
+                mp.insert({str1[i],str2[i]});
+                
+            }
+            else   
+            {
+              if(itr->second!=str2[i])
+              return false;
+            }
+        }
+        return true;
+        
+        // Your code here
+        
+    }
+};

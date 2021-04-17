@@ -1,0 +1,21 @@
+class Solution
+{
+  public:
+    string secFrequent (string arr[], int n)
+    {
+        unordered_map<string,int> mp;
+        vector<pair<int,string>> vec;
+        for(int i=0;i<n;i++)
+        {
+            mp[arr[i]]++;
+        }
+        for(auto it : mp)
+        {
+            vec.push_back({it.second,it.first});
+        }
+        //code here.
+        sort(vec.begin(),vec.end());
+        return vec[vec.size()-2].second;
+        
+    }
+};

@@ -1,0 +1,19 @@
+bool isSumTree(Node* root)
+{
+     // Your code here
+     int x=root->data;
+     //cout<<boolSum(root)<<"**"<<x<<"\n";
+     if((boolSum(root)-x)==x)
+     return 1;
+     return 0;
+}
+ int  boolSum(Node* root)
+{
+    if(root==NULL)
+    return 0;
+    
+    int oldval=root->data;
+    
+    root->data=boolSum(root->left)+boolSum(root->right);
+    return (oldval+root->data);
+}
