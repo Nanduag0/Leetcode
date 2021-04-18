@@ -1,0 +1,28 @@
+public:
+		vector<string> AllPossibleStrings(string s){
+		    // Code here
+		    vector<string> vec;
+		    int i=0;
+		    string a="";
+		    int l=(1<<s.length())-1;
+		    for(int i=1;i<=l;i++)
+		    {
+		        int j=i;
+		        int m=0;
+		        a="";
+		        while(j)
+		        {
+		            if(j&1)
+		            {
+		                a+=s[m];
+		            }
+		            m++;
+		            j>>=1;
+		        }
+		        vec.push_back(a);
+		    }
+		    sort(vec.begin(),vec.end());
+		    return vec;
+		    
+		}
+};

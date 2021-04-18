@@ -1,0 +1,32 @@
+ vector<int> singleNumber(vector<int> nums) 
+    {
+        // Code here.
+    int xory=0;
+    vector<int> :: iterator itr;
+    for(int i=0;i<nums.size();i++)
+    {
+        xory^=nums[i];
+    }
+    int rsb=xory & -xory;
+    int a=0,b=0;
+    vector<int> ans;
+    for(int i=0;i<nums.size();i++)
+    {
+        if((rsb & nums[i])==0)
+        a^=nums[i];
+        else
+        b^=nums[i];
+    }
+    if(a<b)
+    {
+        ans.push_back(a);
+        ans.push_back(b);
+    }
+    else
+    {
+        ans.push_back(b);
+        ans.push_back(a);
+    }
+    return ans;
+    }
+};
