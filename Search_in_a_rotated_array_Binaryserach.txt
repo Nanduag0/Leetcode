@@ -1,0 +1,89 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) 
+    {
+        int flag=0;
+        vector<int> vecs;
+        int i;
+        if(nums.size()<=2)
+        {
+            auto it=find(nums.begin(),nums.end(),target);
+            if(it==nums.end())
+                return -1;
+            else
+            return distance(nums.begin(),it);
+            
+        }
+      for(i=1;i<nums.size()-1;i++)
+      {
+          if(nums[i]<nums[i+1] && nums[i]<nums[i-1])
+          {
+              flag=1;
+              break;
+          }
+     
+      }
+        if(flag==1)
+        {
+            for(int j=i;j<nums.size();j++)
+            {
+                vecs.push_back(nums[j]);
+            }
+            for(int k=0;k<i;k++)
+            {
+                vecs.push_back(nums[k]);
+            }
+        }
+        else
+            if(nums[nums.size()-1]<nums[nums.size()-2])
+            {
+                i=nums.size()-1;
+                for(int j=i;j<nums.size();j++)
+                {
+                    vecs.push_back(nums[j]);
+                }
+                for(int k=0;k<i;k++)
+                {
+                    vecs.push_back(nums[k]);
+                }
+            }
+        else
+        {
+         i=0;   
+         vecs=nums;   
+        }
+           
+        int mid=0;
+        int l=0,h=nums.size()-1;
+        flag=0;
+        for(auto it : vecs)
+        {
+            cout<<it;
+        }
+        while(l<=h)
+        {
+            mid=l+(h-l)/2;
+            if(vecs[mid]<target)
+            {
+                l=mid+1;
+            }
+            else
+                if(vecs[mid]>target)
+                {
+                    h=mid-1;
+                }
+            else
+                if(vecs[mid]==target)
+                {
+                    if(mid+i>=nums.size())
+                    {
+                        return -1*(nums.size()-(mid+i));
+                    }
+                    else
+                    return mid+i;
+                    break;
+                }
+        }
+        return -1;
+    }
+};

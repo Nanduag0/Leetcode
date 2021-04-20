@@ -1,0 +1,30 @@
+class Solution{
+    int indx=0;
+    unordered_map<int,int> mp;
+    public:
+    Node* buildTree(int in[],int pre[], int n)
+    {
+        // Code here
+        for(int i=0;i<n;i++)
+        {
+            mp[in[i]]=i;
+        }
+       return  solve(in,pre,0,n-1);
+    }
+    Node* solve(int in[],int pre[],int lb,int up)
+    {
+        if(lb>up)
+        {
+            return NULL;
+        }
+        Node* temp=new Node(pre[indx++]);
+        if(lb==up)
+        {
+            return temp;
+        }
+        int mid=mp[temp->data];
+        temp->left=solve(in,pre,lb,mid-1);
+        temp->right=solve(in,pre,mid+1,up);
+        return temp;
+    }
+};
