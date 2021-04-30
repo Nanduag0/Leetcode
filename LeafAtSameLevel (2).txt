@@ -1,0 +1,32 @@
+bool solve(Node *root,int *minim,int len)
+    {
+        if(root==NULL)
+        return true;
+        
+        if(root->left==NULL && root->right==NULL)
+        {
+            if(*minim==0)
+            {
+             *minim=len;
+            return true; 
+            }
+             return (len==*minim);
+        }
+      
+        return  solve(root->left ,minim,len+1) &&  solve(root->right,minim,len+1);
+        
+    }
+    
+class Solution{
+    
+  public:
+    /*You are required to complete this method*/
+    bool check(Node *root)
+    {
+        //Your code here
+       int minim=0;
+       int len=0;
+       return solve(root,&minim,len);
+    }
+   
+};

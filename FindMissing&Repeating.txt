@@ -1,0 +1,27 @@
+public:
+    int *findTwoElement(int *arr, int n) {
+        // code here
+      int *ans=new int[2];
+      vector<bool> visited(n+1);
+      visited={false};
+      for(int i=0;i<n;i++)
+      {
+          if(visited[arr[i]]==true)
+          {
+              ans[0]=arr[i];
+          }
+          else
+          visited[arr[i]]=true;
+      }
+      int m=0;
+      for(int i=1;i<=n;i++)
+      {
+          if(visited[i]==false)
+          {
+              ans[1]=i;
+              break;
+          }
+      }
+      return ans;
+      
+    }

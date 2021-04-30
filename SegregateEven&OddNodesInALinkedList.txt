@@ -1,0 +1,38 @@
+public:
+    Node* divide(int N, Node *head){
+        // code here
+        Node *temp=head;
+        vector<int> vece;
+        vector <int> veco;
+        while(temp!=NULL)
+        {
+            if(temp->data&1)
+            {
+                veco.push_back(temp->data);
+            }
+            else
+            vece.push_back(temp->data);
+            temp=temp->next;
+        }
+        temp=head;
+        while(temp!=NULL)
+        {
+            if(vece.size()!=0)
+            {
+                auto it=vece.begin();
+                temp->data=*it;
+                vece.erase(it);
+            }
+            else
+            if(veco.size()!=0)
+            {
+                auto it=veco.begin();
+                temp->data=*it;
+                veco.erase(it);
+            }
+            temp=temp->next;
+        }
+        return head;
+        
+    }
+};
