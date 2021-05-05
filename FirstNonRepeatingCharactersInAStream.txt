@@ -1,0 +1,34 @@
+	public:
+		string FirstNonRepeating(string A){
+		    // Code here
+		    vector<int>  vec(26);
+		    vec={0};
+		    string ans="";
+		    int j=0;
+		    queue<char> que;
+		    if(A.length()==0)
+		    return ans;
+		    while(j<A.length())
+		    {
+		        que.push(A[j]);
+		        vec[A[j]-'a']++;
+		        while(!que.empty())
+		        {
+		            if(vec[que.front()-'a']>1)
+		            {
+		                que.pop();
+		            }
+		            else
+		            {
+		                 ans+=que.front();
+		                 break;
+		            }
+		           
+		        }
+		        if(que.empty())
+		        ans+="#";
+		        j++;
+		    }
+		    return ans;
+		    
+		}

@@ -1,0 +1,88 @@
+ int orangesRotting(vector<vector<int>>& grid) 
+    {
+        
+        //MOST STUPID PROBLEM SOLVE USING BFS !!!!!!
+        if(grid.size()==0)
+        {
+            return 0;
+        }
+        queue<pair<int,int>> que;
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid[i].size();j++)
+            {
+                if(grid[i][j]==2)
+                que.push({i,j});
+            }
+        }
+        int count=0;
+        int p=0;
+        while(1)
+        {
+            int p=que.size();
+            vector<pair<int,int>> vec;
+            while(p--)
+            {
+            int x=que.front().first;
+            int y =que.front().second;
+               if(x+1<grid.size())
+            {
+               if(grid[x+1][y]==1)
+               {
+                    vec.push_back(make_pair(x+1,y));
+                    grid[x+1][y]=2;
+               }
+               
+            }
+            if(x-1>=0)
+            {
+                if(grid[x-1][y]==1)
+                {
+                 vec.push_back(make_pair(x-1,y));            
+                 grid[x-1][y]=2;
+                }
+                
+            }
+            if(y+1<grid[0].size())
+            {
+                if(grid[x][y+1]==1)
+                {
+                    vec.push_back(make_pair(x,y+1));
+                    grid[x][y+1]=2;
+                }
+                
+            }
+            if(y-1>=0)
+            {
+                if(grid[x][y-1]==1)
+                {
+                     vec.push_back(make_pair(x,y-1));
+                     grid[x][y-1]=2;
+                }
+               
+            }
+             que.pop();    
+            }
+            //cout<<vec.size()<<"\n";
+            if(vec.size()==0)
+            break;
+            count++;
+            for(int y=0;y<vec.size();y++)
+            {
+                que.push({vec[y].first,vec[y].second});
+            }
+            vec.clear();
+        }
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=0;j<grid[0].size();j++)
+            {
+                if(grid[i][j]==1)
+                return -1;
+            }
+        }
+        
+        return count;
+        
+    }
+  

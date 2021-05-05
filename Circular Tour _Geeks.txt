@@ -1,0 +1,50 @@
+class Solution{
+  public:
+  
+    //Function to find starting point where the truck can start to get through
+    //the complete circle without exhausting its petrol in between.
+    int tour(petrolPump p[],int n)
+    {
+        int front=0;
+        int rear=0;
+        int i=front;
+        int count=0;
+        int flag=0;
+        while(front<n)
+        {
+             count+=(p[front].petrol-p[front].distance);
+             if(count<0)
+           {
+                flag=1;
+                front++;
+                i=front;
+                count=0;
+                continue;
+            }
+          front++;
+        }
+        if(flag!=1)
+        {
+            return 0;
+        }
+        
+        while(rear<i)
+        {
+            if(p[rear].petrol-p[rear].distance<=0)
+            {
+                count=count-(p[rear].distance-p[rear].petrol);
+            }
+            else
+            count=count+(p[rear].petrol-p[rear].distance);
+            rear++;
+        }
+       // cout<<count<<'\n';
+        if(count<0)
+        return -1 ;
+        else
+        return i;
+        
+       //Your code here
+    }
+};
+
