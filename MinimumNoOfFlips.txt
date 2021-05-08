@@ -1,0 +1,30 @@
+int minFlips (string S)
+{
+    
+    // your code here
+    int j=S.length()-1;
+    int counto=0,counte=0;
+    while(j>=0)
+    {
+        //For odd 
+        if(j&1 && S[j]=='0')
+        {
+            counto++;
+        }
+        if(!(j&1) && S[j]=='1')
+        counto++;
+        
+      //Foreven 
+      if(!(j&1) && S[j]=='0')
+      {
+          counte++;
+      }
+      if(S[j]=='1' && j&1)
+      counte++;
+      j--;
+    }
+    
+    return min(counte,counto);
+    
+    
+}

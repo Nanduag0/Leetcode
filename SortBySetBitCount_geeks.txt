@@ -1,0 +1,37 @@
+  public:
+    void sortBySetBitCount(int arr[], int n)
+    {
+        map<int,vector<int>> vec;
+        map<int,vector<int>> ::iterator itr;
+        for(int i=0;i<n;i++)
+        {
+            int j=arr[i];
+            int count=0;
+            while(j)
+            {
+                j=j&(j-1);
+                count++;
+                j>>=1;
+            }
+          vec[count].push_back(arr[i]);
+        }
+        vector<int> v;
+        itr=vec.begin();
+        vector<vector<int>> vss;
+        while(itr!=vec.end())
+        {
+            v=itr->second;
+            vss.push_back(v);
+            itr++;
+        }
+        reverse(vss.begin(),vss.end());
+        int m=0;
+        for(int i=0;i<vss.size();i++)
+        {
+            for(int j=0;j<vss[i].size();j++)
+            {
+                arr[m]=vss[i][j];
+                m++;
+            }
+        }
+    }

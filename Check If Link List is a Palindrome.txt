@@ -1,0 +1,27 @@
+bool isPalindrome(Node *head)
+{
+    string s="";
+    Node *temp=head;
+    while(temp!=NULL)
+    {
+        s+=(temp->data-'0');
+        temp=temp->next;
+    }
+    return palindrome(s);
+    
+    //Your code here
+}
+bool  palindrome(string a)
+{
+    int i=0,j=a.length()-1;
+    while(i<=j)
+    {
+        if(a[i]!=a[j])
+        return 0;
+        i++;
+        j--;
+    }
+    return 1;
+    
+}
+

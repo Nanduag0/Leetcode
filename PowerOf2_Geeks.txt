@@ -1,0 +1,18 @@
+ bool isPowerofTwo(long long n){
+        
+        int  count=0;
+        while(n)
+        {
+            if(n&1)
+            count++;
+            n>>=1;
+            
+        }
+        if(count==1)
+        return 1;
+        else
+        return 0;
+        
+        // Your code here    
+        
+    }

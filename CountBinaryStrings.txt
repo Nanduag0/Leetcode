@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int countBinarySubstrings(string s) 
+    {
+        vector<int> vec(s.size());
+        vec[0]=1;
+        int indx=0;
+        int sum=0;
+        for(int i=1;i<s.length();i++)
+        {
+            if(s[i]!=s[i-1])
+            {
+                indx++;
+                vec[indx]=1;
+            }
+            else
+            {
+                vec[indx]++;
+            }
+        }
+        for(int i=1;i<=indx;i++)
+        {
+            sum+=min(vec[i],vec[i-1]);
+            
+        }
+        return sum;
+        
+    }
+};

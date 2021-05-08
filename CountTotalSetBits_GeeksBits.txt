@@ -1,0 +1,34 @@
+int poweroftwo(int num)
+{
+    int i=0;
+    while((1<<i)<=num)
+    {
+        i++;
+    }
+    return i-1;
+}
+int solve(int n,int &count)
+{
+    if(n==0)
+    return 0;
+    else
+    {
+        int poq=poweroftwo(n);
+        int a =(poq*(1<<(poq-1)));
+        int b=(n-(1<<poq)+1);
+        int res=n-pow(2,poq);
+        count=a+b+solve(res,count);
+    }
+    return count;
+}
+class Solution{
+    public:
+    int count=0;
+    // n: input to count the number of set bits
+    //Function to return sum of count of set bits in the integers from 1 to n.
+    int countSetBits(int n)
+    {
+       return solve(n,count);
+    }
+    
+};

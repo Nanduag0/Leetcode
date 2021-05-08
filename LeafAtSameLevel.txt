@@ -1,0 +1,27 @@
+bool inorder(Node *root,int level,int *leaflevel);
+class Solution{
+  public:
+  int count;
+    /*You are required to complete this method*/
+    bool check(Node *root)
+    {
+        //Your code here
+        int leaflevel=0;
+        return inorder(root,0,&leaflevel);
+    }
+    bool inorder(Node *root,int level,int *leaflevel)
+    {
+        if(root==NULL)
+        return true;
+        if(root->right==NULL && root->left==NULL)
+        {
+            if(*leaflevel==0)
+            {
+                *leaflevel=level;
+                return true;
+            }
+            return (*leaflevel==level);
+        }
+        return inorder(root->right,level+1,leaflevel) && inorder(root->left,level+1,leaflevel);
+    }
+};

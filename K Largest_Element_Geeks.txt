@@ -1,0 +1,21 @@
+class Solution{
+public:	
+	vector<int> kLargest(int arr[], int n, int k) {
+	    // code here
+	    vector<int> vec;
+	    priority_queue<int> maxheap;
+	    for(int i=0;i<n;i++)
+	    {
+	        maxheap.push(arr[i]);
+	    }
+	    while(k!=0)
+	    {
+	        int x=maxheap.top();
+	        vec.push_back(x);
+	        maxheap.pop();
+	        k--;
+	    }
+	    return vec;
+	}
+
+};

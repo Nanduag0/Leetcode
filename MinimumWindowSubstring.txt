@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string minWindow(string s, string t) 
+    {
+        if(t.length()>s.length())
+            return "";
+       map<char,int> mp;
+       for(int i=0;i<t.length();i++)
+       {
+           mp[t[i]]++;
+       }
+        int i=0,j=0;
+        int minim=INT_MAX;
+        int n=t.length();
+        int k=0;
+        int count=0;
+        while(j<s.length())
+        {
+            if(mp.find(s[j])!=mp.end())
+            {
+                mp[s[j]]--;
+                if(mp[s[j]]>=0)    
+                count++;  
+            }
+            while(count==n)
+            {
+                if(minim>j-i+1)
+                {
+                    k=i;
+                    minim=j-i+1;
+                }
+                if(mp.find(s[i])!=mp.end())
+                {
+                   mp[s[i]]++;
+                   if(mp[s[i]]>0)
+                    count--;  
+                }
+                i++;
+            }
+            j++;
+        }
+        if(minim==INT_MAX)
+            return "";
+        else
+      return s.substr(k,minim);
+    }
+};

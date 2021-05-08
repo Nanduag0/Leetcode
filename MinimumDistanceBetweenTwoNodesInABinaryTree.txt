@@ -1,0 +1,35 @@
+int findDist(Node* root, int a, int b) {
+    // Your code here
+  Node* node=LCA(root,a,b);
+  int x=solve(node,a);
+  int y=solve(node,b);
+  return x+y-2;
+}
+ 
+//Distance from the root to the child node
+
+ int solve(Node* node,int a)
+ {
+     if(!node)
+     return 0;
+     if(node->data==a)
+     return 1;
+     int xx = solve(node->left,a);
+     int yy = solve(node->right,a);
+     if(!xx && !yy)
+     return 0;
+     return xx+yy+1;
+ }
+//Finding Lowest Common Ancestor in a Tree 
+ Node* LCA(Node* root,int a,int b)
+ {
+     if(root==NULL)
+     return root;
+     if(root->data==a || root->data==b)
+     return root;
+     Node* left=LCA(root->left,a,b);
+     Node* right=LCA(root->right,a,b);
+     if(left!=NULL && right!=NULL)
+     return root;
+     return left!=NULL?left:right;
+ }

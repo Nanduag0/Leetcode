@@ -1,0 +1,29 @@
+public:
+	int minSwaps(vector<int>&nums)
+	{
+	    vector<pair<int,int>> vec;
+	    for(int i=0;i<nums.size();i++)
+	    {
+	        vec.push_back(make_pair(nums[i],i));
+	    }
+	    vector<pair<int,int>> cev;
+	    cev=vec;
+	    int count=0;
+	    sort(cev.begin(),cev.end());
+	    for(int i=0;i<nums.size();i++)
+	    {
+	        if(cev[i].second==i)
+	        {
+	            continue;
+	        }
+	        else
+	        {
+	            count++;
+	            swap(cev[cev[i].second],cev[i]);
+	            i--;
+	        }
+	    }
+	    return count;
+	    // Code here
+	}
+};

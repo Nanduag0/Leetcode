@@ -1,0 +1,31 @@
+vector<long long> printFirstNegativeInteger(long long int A[],
+                                             long long int N, long long int K) 
+{
+map<long long,long long > mp;
+vector<long long> ans;
+
+long long  i=0,j=0;
+while(j<N)
+{
+    if(A[j]<0)
+    {
+      mp.insert({j,A[j]});
+    }
+    if(j-i+1==K)
+    {
+        auto itr=mp.begin();
+        if(itr==mp.end())
+        ans.push_back(0);
+        else
+        ans.push_back(itr->second);
+        if(mp.find(i)!=mp.end())
+        {
+            auto it=mp.find(i);
+            mp.erase(it);
+        }
+        i++;
+    }
+    j++;
+}
+return ans;
+}

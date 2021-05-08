@@ -1,0 +1,33 @@
+queue<int> modifyQueue(queue<int> q, int k)
+{
+    //add code here.
+    stack<int> s;
+    for(int i=0;i<k;i++)
+    {
+        s.push(q.front());
+        q.pop();
+    }
+    vector<int> vec;
+    while(!q.empty())
+    {
+        vec.push_back(q.front());
+        q.pop();
+    }
+    int i=0;
+   
+    while(!s.empty())
+    {
+        q.push(s.top());
+        s.pop();
+        
+    }
+     while(i<vec.size())
+    {
+        q.push(vec[i]);
+        i++;
+    }
+    
+   
+    return q;
+    
+}

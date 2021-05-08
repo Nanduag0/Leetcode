@@ -1,0 +1,39 @@
+class Solution
+{
+    public:
+    int kthLargest(Node *root, int K)
+    {
+        //Your code here
+        priority_queue<int> ss;
+        queue<Node*> que;
+        que.push(root);
+        ss.push(root->data);
+        while(!que.empty())
+        {
+            int x=que.size();
+            while(x!=0)
+            {
+                Node *p=que.front();
+                que.pop();
+                if(p->left!=NULL)
+                {
+                    que.push(p->left);
+                    ss.push(p->left->data);
+                }
+                if(p->right!=NULL)
+                {
+                    que.push(p->right);
+                    ss.push(p->right->data);
+                }
+                x--;
+            }
+        }
+        K=K-1;
+        while(K--)
+        {
+            ss.pop();
+        }
+        return ss.top();
+        
+    }
+};

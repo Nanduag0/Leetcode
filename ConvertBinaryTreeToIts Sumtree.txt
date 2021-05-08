@@ -1,0 +1,17 @@
+void toSumTree(Node *node)
+{
+    // Your code here
+    check(node);
+}
+
+int  check(Node* node)
+{
+     if(node==NULL)
+    {
+        return 0;
+        
+    }
+    int oldval=node->data;
+    node->data=check(node->left)+check(node->right);
+    return node->data+oldval;
+}

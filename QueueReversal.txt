@@ -1,0 +1,29 @@
+void solve(queue<int> &q);
+void insert(queue<int> &q,int temp);
+ 
+void solve(queue<int> &q)
+ {
+     if(q.size()==1)
+     return;
+     int temp=q.front();
+     q.pop();
+     solve(q);
+     insert(q,temp);
+ }
+  void insert(queue<int> &q,int temp)
+  {
+     q.push(temp);
+     return;
+  }
+  
+//Function to reverse the queue.
+ 
+ 
+queue<int> rev(queue<int> q)
+{
+    solve(q);
+    return q;
+    
+    // add code here.
+}
+ 

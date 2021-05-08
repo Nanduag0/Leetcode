@@ -1,0 +1,31 @@
+void insert(stack<int> &s ,int temp);
+void solve(stack<int> &s);
+/* The below method sorts the stack s 
+you are required to complete the below method */
+void SortedStack :: sort()
+{
+    solve(s);
+    //Your code here
+}
+void solve(stack<int> &s)
+{
+    if(s.size()==1)
+    return;
+       int x=s.top();
+       s.pop();
+       solve(s);
+       insert(s,x);
+}
+void insert(stack<int> &s ,int temp)
+{
+    if(s.size()==0 || s.top()<=temp)
+     {
+         s.push(temp);
+         return;
+     }
+         int val=s.top();
+         s.pop();
+         insert(s,temp);
+         s.push(val);
+         return;
+}
