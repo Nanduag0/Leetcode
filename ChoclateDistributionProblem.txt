@@ -1,0 +1,23 @@
+public:
+    long long findMinDiff(vector<long long> a, long long n, long long m)
+    {
+    //code
+    sort(a.begin(),a.end());
+    int minim=a[0];
+    int maxim=a[0];
+    int diff=INT_MAX;
+    int i=0,j=0;
+    while(j<n)
+    {
+        if(j-i+1==m)
+        {
+            maxim=a[j];
+            diff=min(diff,maxim-minim);
+            i++;
+            minim=a[i];
+        }
+        j++;
+    }
+    return diff;
+    }   
+};

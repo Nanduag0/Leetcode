@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) 
+    {
+        if(nums.size()==1 || nums[0]==0)
+        {
+            return 0;
+        }
+        int currpos=nums[0],farthest=nums[0],jumps=1;
+        for(int i=1;i<nums.size();i++)
+        {
+            if(i==nums.size()-1)
+            {
+                return jumps;
+            }
+            farthest=max(farthest,(i+nums[i]));
+            if(i==currpos)
+            {
+                jumps++;
+                currpos=farthest;
+            }
+            
+        }
+        return jumps;
+        
+    }
+};

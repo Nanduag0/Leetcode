@@ -1,0 +1,25 @@
+{
+public:
+    vector<int> candyStore(int candies[], int N, int K)
+    {
+        // Write Your Code here
+        sort(candies,candies+N);
+        int minim=0,maxim=0;
+        int size1=N,size2=0;
+        for(int i=0;i<size1;i++)
+        {
+            minim+=candies[i];
+            size1-=K;
+        }
+        for(int i=N-1;i>=size2;i--)
+        {
+            maxim+=candies[i];
+            size2+=;
+        }
+        vector<int> ans;
+        ans.push_back(minim);
+        ans.push_back(maxim);
+        return ans;
+        
+    }
+};
