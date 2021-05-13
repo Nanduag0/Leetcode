@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int minStartValue(vector<int>& nums) 
+    {
+        int flag=0;
+        for(int i=1;i<100000;i++)
+        {
+            flag=0;
+            int sum=i;
+            for(auto it: nums)
+            {
+                sum+=it;
+                if(sum<1)
+                {
+                   flag=1;
+                    break;
+                }
+                  
+            }
+            if(flag!=1)
+                return i;
+        }
+        return -1;
+    }
+};
