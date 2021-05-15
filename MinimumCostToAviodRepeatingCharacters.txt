@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int minCost(string s, vector<int>& cost)
+    {
+        
+        //USED SLIDING WINDOW CONCEPT !!!!!!
+        int i=0;
+        char ch=s[0];
+        int j=1;
+        int minimcost=0;
+        priority_queue<int,vector<int>,greater<int>> pq;
+        while(j<s.length())
+        {
+            if(s[j]==ch)
+            {
+            
+            }
+            else
+            {
+                if(j-i>1)
+                {
+                    while(i<=j-1)
+                {
+                    pq.push(cost[i]);
+                    i++;
+                }
+                while(!(pq.size()==1))
+                {
+                   minimcost+=(pq.top());
+                   pq.pop();
+                 }
+                 pq.pop();
+                
+                }
+                 i=j;
+                 ch=s[j];
+             }
+            j++;
+        }
+        while(j-i>1)
+        {
+             while(i<=j-1)
+                {
+                    pq.push(cost[i]);
+                    i++;
+                }
+                while(!(pq.size()==1))
+                {
+                   minimcost+=(pq.top());
+                   pq.pop();
+                 }
+                 pq.pop();
+        }
+        return minimcost;
+    }
+};

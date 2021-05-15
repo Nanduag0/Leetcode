@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxFrequency(vector<int>& nums, int k) {
+    
+      sort(nums.begin(),nums.end());
+        long l = 0;
+        long r= 0;
+        long max_count = INT_MIN;
+        long total = 0;
+        while(r < nums.size())
+        {
+            total += nums[r];
+            while(nums[r]*(r-l+1) > total + k)
+            {
+                total -= nums[l];
+                l++;
+            }
+            max_count = max(max_count,r-l+1);
+            r++;
+        }
+        return max_count;
+        
+    }
+};

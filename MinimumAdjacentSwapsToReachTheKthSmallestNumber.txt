@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int getMinSwaps(string num, int k) 
+    {
+        if(k==0 || num.length()<=1)
+            return 0;
+        string org=num;
+        int i=0;
+        do
+        {
+            if(i==k)
+             break;
+            i++;
+        }while(next_permutation(num.begin(),num.end()));
+        i=0;
+        int j=0;
+        int count=0;
+        while(i<num.length() && j<num.length())
+        {
+            if(org[i]!=num[j])
+            {
+                int m=j+1;
+                while(m<num.length())
+                {
+                   if(num[m]==org[i])
+                   {
+                       while(num[j]!=org[i])
+                       {
+                          count++;
+                          swap(num[m],num[m-1]);
+                          m--;
+                       }
+                      break;
+                   }
+                    m++;
+                }
+            }
+            i++;
+            j++;
+        }
+        return count;
+    }
+};
