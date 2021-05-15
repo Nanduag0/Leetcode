@@ -1,0 +1,62 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) 
+    {
+       if(intervals.size()==0  && newInterval.size()!=0)
+          {
+           intervals.push_back(newInterval);
+           return intervals;
+          }
+       sort(intervals.begin(),intervals.end(),cmp);
+       int flag=0;
+       int end=0;
+       int start=0;
+       for(int i=0;i<intervals.size();i++)
+       {
+           end=intervals[i][1];
+           start=intervals[i][0];
+           if(newInterval[0]<=end && newInterval[1]>=start)
+           {
+               intervals[i][1]=max(newInterval[1],intervals[i][1]);
+               intervals[i][0]=min(newInterval[0],intervals[i][0]);
+               flag=1;
+               break;
+           }
+       }
+      if(flag!=1)
+      {
+          intervals.push_back(newInterval);
+      }
+      vector<vector<int>> ans;
+      
+      int current_x=intervals[0][0];
+      int current_y=intervals[0][1];
+     
+      for(int i=0;i<intervals.size();i++)
+      cout<<intervals[i][0]<<"***"<<intervals[i][1]<<"\n";
+      for(int i=1;i<intervals.size();i++)
+      {
+          if(intervals[i][0]<=current_y && intervals[i][1]>=current_x)
+          {
+              current_y=max(intervals[i][1],current_y);
+              current_x=min(intervals[i][0],current_x);
+              //cout<<current_x<<'***'<<current_y<<"\n";
+          }
+          else
+          {
+              //cout<<current_x<<"***"<<current_y<<"\n";
+              ans.push_back({current_x,current_y});
+              current_x=intervals[i][0];
+              current_y=intervals[i][1];
+          }
+      }
+        ans.push_back({current_x,current_y});
+        sort(ans.begin(),ans.end(),cmp);
+        return ans;
+        
+    }
+    static bool cmp(vector<int> A,vector<int> B)
+    {
+        return (A[1]<B[1]);
+    }
+};

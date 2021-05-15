@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int maximumElementAfterDecrementingAndRearranging(vector<int>& arr)
+    {
+      sort(arr.begin(),arr.end());
+      int i=0;
+      int maxim=INT_MIN;
+      while(i<arr.size())
+      {
+          if(i==0)
+              arr[0]=1;
+          else
+              if(abs(arr[i]-arr[i-1])>1)
+              {
+                  arr[i]=arr[i-1]+1;
+              }
+          maxim=max(maxim,arr[i]);
+          i++;
+      }
+        return maxim;
+    }
+};
