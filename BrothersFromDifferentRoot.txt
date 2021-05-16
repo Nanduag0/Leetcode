@@ -1,0 +1,36 @@
+void inorder(vector<int> &v,Node* root);
+
+// You are required to complete this function
+int countPairs(Node* root1, Node* root2, int x)
+{
+    vector<int> a1,a2;
+    inorder(a1,root1);
+    inorder(a2,root2);
+    vector<int> ss(a2.size());
+    ss={0};
+    int count=0;
+    vector<int> :: iterator itr;
+    for(int i=0;i<a1.size();i++)
+    {
+        itr=find(a2.begin(),a2.end(),(x-a1[i]));
+        if(itr!=a2.end() && ss[distance(a2.begin(),itr)]!=-1)
+        {
+            count++;
+            ss[distance(a2.begin(),itr)]=-1;
+        }
+    }
+    return count;
+    
+    // Code here
+}
+ 
+ void inorder(vector<int> &v,Node* root)
+ {
+     if(root==NULL)
+     return;
+     inorder(v,root->left);
+     v.push_back(root->data);
+     inorder(v,root->right);
+     return;
+     
+ }

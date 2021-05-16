@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxAbsoluteSum(vector<int>& nums)
+    {
+     int a1=0;
+     int a2=0;
+     int ans=0;
+        for(auto it : nums)
+        {
+            a1+=it;
+            a2+=it;
+            ans=max({ans,a1,abs(a2)});
+            if(a1<0)
+                a1=0;
+            if(a2>0)
+                a2=0;
+        }
+        return ans;
+        
+    }
+};
