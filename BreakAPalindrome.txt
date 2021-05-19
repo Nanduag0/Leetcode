@@ -1,0 +1,64 @@
+class Solution {
+public:
+    string breakPalindrome(string palindrome)
+    {
+        if(palindrome.length()==1)
+        {
+            return "";
+        }
+        int i=0;
+        int y=0;
+        int lastpos=0;
+        for(int i=0;i<palindrome.length();i++)
+        {
+            if(palindrome[i]=='a')
+            {
+                lastpos=i;
+            }
+        }
+        i=0;
+        while(i<palindrome.length())
+        {
+            char ch='a';
+            if(palindrome[i]!='a')
+            {
+                char tmp=palindrome[i];
+                while(ch<=tmp)
+            {
+                palindrome[i]=ch;
+                if(!(isPalindrome(palindrome)))
+                    return palindrome;
+                ch+=1;
+            } 
+            }
+            else if(palindrome[i]=='a' && i==lastpos)
+            {
+                ch='b';
+                while(ch<='z')
+                {
+                    palindrome[i]=ch;
+                    if(!(isPalindrome(palindrome)))
+                        return palindrome;
+                        ch+=1;
+                }
+                
+            }
+            i++;
+        }
+        return palindrome;
+    }
+    bool isPalindrome(string p)
+    {
+        int m=0,n=p.length()-1;
+        while(m<=n)
+        {
+            if(p[m]!=p[n])
+            {
+                return false;
+            }
+            m++;
+            n--;
+        }
+        return true;
+    }
+};

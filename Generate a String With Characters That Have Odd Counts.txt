@@ -1,0 +1,22 @@
+class Solution {
+public:
+    string generateTheString(int n) 
+    {
+        int k=1;
+        string s="";
+        if(n==1)
+            return "a";
+        
+        if(n&1)
+        {
+         s.append(n,'a');
+         return s;
+        }
+        else 
+        {
+           s.append(n-1,'a');
+           s.append(1,'b');
+        }
+        return s;
+    }
+};

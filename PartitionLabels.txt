@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+      vector<int> vec(26);
+        for(int i=0;i<s.length();i++)
+        {
+            vec[s[i]-'a']=i;
+        }
+        vector<int> ans;
+        int j=0,anchor=0;
+        for(int i=0;i<s.length();i++)
+        {
+            j=max(j,vec[s[i]-'a']);
+            if(j==i)
+            {
+                ans.push_back(i-anchor+1);
+                anchor=i+1;
+            }
+        }
+        return ans;
+        
+    }
+};
