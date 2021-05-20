@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int minAddToMakeValid(string s)
+    {
+        stack<char> ss;
+        int i=0;
+        while(i<s.length())
+        {
+            if(ss.empty())
+                ss.push(s[i]);
+            else
+                if(s[i]==')')
+                {
+                    if(ss.top()=='(' && !(ss.empty()))
+                    {
+                        ss.pop();
+                    }
+                    else
+                        ss.push(s[i]);
+                }
+            else
+                ss.push(s[i]);
+            i++;
+        }
+        int open=0,close=0;
+        //cout<<ss.size();
+        while(!ss.empty())
+        {
+            //cout<<"***"<<"\n";
+            
+            if(ss.top()=='(')
+                open++;
+                if(ss.top()==')')
+                close++;
+            ss.pop();
+        }
+        return (open+close);
+        
+        
+    }
+};
