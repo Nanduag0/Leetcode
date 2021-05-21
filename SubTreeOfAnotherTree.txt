@@ -1,0 +1,47 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSubtree(TreeNode* root, TreeNode* subRoot) 
+    {
+        int value=subRoot->val;
+        queue<TreeNode*> que;
+        que.push(root);
+        while(!que.empty())
+        {
+            TreeNode* temp=que.front();
+            que.pop();
+            if(temp->val==value)
+            {
+                string a =solve(subRoot);
+                string b =solve(temp);
+                if(a==b)
+                    return true;
+            }
+            if(temp->left!=NULL)
+                que.push(temp->left);
+            if(temp->right!=NULL)
+                que.push(temp->right);
+        }
+        return false;
+    }
+   string  solve(TreeNode * node)
+    {
+        if(!node)
+            return "&";
+        string s="";
+        s+=to_string(node->val);
+        s=s+solve(node->left);
+        s=s+solve(node->right);
+        return s;
+    }
+};

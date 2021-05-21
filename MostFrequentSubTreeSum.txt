@@ -1,0 +1,62 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    //void inorder(TreeNode* root,vector<int> &vec);
+     //int solve(TreeNode* root);
+    
+    vector<int> findFrequentTreeSum(TreeNode* root)
+    {
+     vector<int> vec;
+     solve(root);
+     inorder(root,vec);
+     map<int,int> mp;
+     int maxim=INT_MIN;
+     for(auto it : vec)
+     {
+         cout<<it;
+         mp[it]++;
+     }
+        if(mp.size()==vec.size())
+            return vec;
+        else
+            for(auto it : mp)
+            {
+                maxim=max(maxim,it.second);
+            }
+        vector<int> ans;
+        for(auto it : mp)
+        {
+            if(it.second==maxim)
+                ans.push_back(it.first);
+        }
+        return ans;
+    }
+    void inorder(TreeNode* root,vector<int> &vec)
+    {
+        if(root==NULL)
+            return;
+        inorder(root->left,vec);
+        vec.push_back(root->val);
+        inorder(root->right,vec);
+        return;
+        
+    }
+    int solve(TreeNode* root)
+    {
+        if(root==NULL)
+            return 0;
+        int oldval=root->val;
+        root->val+=(solve(root->left)+solve(root->right));
+        return root->val;
+    }
+};
