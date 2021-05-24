@@ -1,0 +1,99 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* removeZeroSumSublists(ListNode* head) 
+    {
+        
+        if(head==NULL)
+            return head;
+        
+        ListNode* temp=head;
+        vector<int> vec;
+        
+        //Storing all the elements in the vector
+         while(temp!=NULL)
+         {
+             vec.push_back(temp->val);
+             temp=temp->next;
+         }
+        
+        //Base conditions 
+         if(vec.size()==1 && vec[0]!=0)
+             return head;
+         if(vec.size()==1 && vec[0]==0)
+             return NULL;
+        
+         //Map to store the sum 
+         unordered_map<int,int> mp;
+        
+        //Will store the index which has to be deleted
+         set<int> deleteindex;
+        
+         int sum=0;
+         int k=-1;
+         vector<int> sums(vec.size());
+        
+        //[0,2]  0 has be inserted so that if the number at index0 is 0 that it can be deleted
+         mp[0]=-1;
+        
+        //Solved using finding subarray that sums to zero 
+        for(int i=0;i<vec.size();i++)
+        {
+            sum+=vec[i];
+            sums[i]=sum;
+            if(mp.find(sum)!=mp.end())
+            {
+                k=mp[sum];
+                while(k+1<=i)
+                {
+                    deleteindex.insert(k+1);//Stores the index whose element has to be deleted.
+                    mp.erase(sums[k+1]);
+                    k++;
+                }
+            }
+            mp[sum]=i;
+        }
+        if(mp[0]==vec.size()-1)
+        {
+            return NULL;
+        }
+        
+        //Vector that has to be stored in the linked list 
+        vector<int> p;
+    
+       for(int y=0;y<vec.size();y++)
+       {
+           if(deleteindex.find(y)==deleteindex.end())
+           {
+                p.push_back(vec[y]);
+           }
+       }
+         for(auto it : p)
+            cout<<it<<"\n";
+       int i=0;
+       temp=head;
+        
+        //store corresponding elements and make once the number is over point temp to NULL.
+       while(i<p.size())
+       {
+           temp->val=p[i];
+           if(i==p.size()-1)
+           {
+               temp->next=NULL;
+               break;
+           }
+           temp=temp->next;
+           i++;
+       }
+        return head;
+    }
+};
