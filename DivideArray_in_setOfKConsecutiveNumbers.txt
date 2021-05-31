@@ -1,0 +1,55 @@
+class Solution {
+public:
+    bool isPossibleDivide(vector<int>& nums, int k) 
+    {
+       if(nums.size()<k)
+            return false;
+        unordered_map<int ,int> mp;
+        for(auto it : nums)
+        {
+            mp[it]++;
+        }
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+        for(auto it : mp)
+        {
+            pq.push(make_pair(it.first,it.second));
+        }
+        vector<vector<int>> ans;
+        vector<vector<int>> less;
+        while(!pq.empty())
+        {
+            vector<int> v;
+            vector<pair<int,int>> slide;
+            for(int i=0;i<k;i++)
+            {
+                if(!pq.empty())
+                {
+                int x=pq.top().first;
+                v.push_back(x);
+                if((pq.top().second-1)!=0)
+                slide.push_back(make_pair(pq.top().first,pq.top().second-1));
+                pq.pop(); 
+                }
+            }
+            for(int u=0;u<slide.size();u++)
+            {
+                pq.push(make_pair(slide[u].first,slide[u].second));
+            }
+            if(v.size()!=k)
+            return false;
+            else
+                ans.push_back(v);
+        }
+        for(int i=0;i<ans.size();i++)
+        {
+            for(int j=0;j<ans[i].size()-1;j++)
+            {
+                if(ans[i][j+1]-ans[i][j]!=1)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};

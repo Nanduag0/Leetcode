@@ -1,0 +1,44 @@
+class Solution{   
+public:
+    string solve(int arr[], int n) {
+        // code here
+        
+        
+        //STUPID QUESTONS ..... TOO STUPID 
+     sort(arr,arr+n);        
+     long long  a=0 , b=0 ;
+     string v="",u="";
+     for(int i=0;i<n;i++)
+     {
+         if(i&1)
+         v.push_back(arr[i]);
+         else
+         u.push_back(arr[i]);
+     }
+     int i=v.length()-1;
+     int j=u.length()-1;
+     string aa="";
+     int sum=0;
+     int carry=0;
+     while(i>=0 || j>=0)
+     {
+         sum=(carry+(v[i]+u[j]));
+         aa+=to_string(sum%10);
+         carry=(sum>=10?1:0);
+         i--;
+         j--;
+     }
+     if(carry)
+     {
+         aa+="1";
+     }
+     reverse(aa.begin(),aa.end());
+     int indx;
+      for(indx=0;indx<aa.length();indx++)
+     {
+         if(aa[indx]!='0')
+         break;
+     }
+      return aa.substr(indx,aa.length()-indx+1);
+    }
+};

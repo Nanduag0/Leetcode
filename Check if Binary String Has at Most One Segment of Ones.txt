@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool checkOnesSegment(string s) 
+    {
+     if(s=="")
+         return false;
+     if(count(s.begin(),s.end(),'1')==1)
+         return true;
+        vector<int> vec;
+     for(int i=0;i<s.length();i++)
+     {
+         if(s[i]=='1')
+             vec.push_back(i);
+     }
+        for(int i=0;i<vec.size()-1;i++)
+        {
+            if(vec[i+1]-vec[i]>1)
+                return  false;
+        }
+        return true;
+        
+    }
+};

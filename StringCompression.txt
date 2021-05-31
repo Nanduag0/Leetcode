@@ -1,0 +1,92 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) 
+    {
+       if(chars.size()<=1)
+           return chars.size();
+        
+        map<char,int> mp;
+        string  count="";
+        if(chars.size()==1)
+            return 1 ;
+        int  t=0;
+        for(int i=0;i<chars.size();i++)
+        {
+          if(mp.find(chars[i])==mp.end())
+          {
+              for(auto c : mp)
+              {
+                  if(c.second!=1)
+                  {
+                      //cout<<c.first<<"****"<<c.second<<"\n";
+                      chars[t]=c.first;
+                      t++;
+                      if(c.second<=9)
+                      {
+                           char a=(c.second)+'0';
+                           chars[t]=a;
+                           t++;
+                      }
+                      else
+                      {
+                          string num=to_string(c.second);
+                          int k=0;
+                          while(k<num.length())
+                          {
+                              chars[t]=num[k];
+                              t++;
+                              k++;
+                          }
+                          //t++;
+                      }
+                     
+                  }
+                  else
+                      {
+                      chars[t]=c.first;
+                      t++;
+                      }
+              }
+              mp.clear();
+          }
+            mp[chars[i]]++;
+        }
+        if(mp.size()!=0)
+        {
+            auto c=mp.begin();
+            if(c->second!=1)
+                  {
+                      //cout<<c.first<<"****"<<c.second<<"\n";
+                      chars[t]=c->first;
+                      t++;
+                      if(c->second<=9)
+                      {
+                           char a=(c->second)+'0';
+                           chars[t]=a;
+                           t++;
+                      }
+                      else
+                      {
+                          string num=to_string(c->second);
+                          int k=0;
+                          while(k<num.length())
+                          {
+                              chars[t]=num[k];
+                              t++;
+                              k++;
+                          }
+                          //t++;
+                      }
+                     
+                  }
+                  else
+                      {
+                      chars[t]=c->first;
+                      t++;
+                      }
+            
+        }
+        chars.resize(t);
+        return chars.size();
+    }
+};

@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int minElements(vector<int>& nums, int limit, int goal) 
+    {
+        long long  sum=0;
+        for(int i=0;i<nums.size();i++)
+            sum+=nums[i];
+        
+        long long  diff=abs(goal-sum);
+        long long  count=0;
+        while(diff!=0)
+        {
+            if(diff>limit)
+            {
+                  count+=(diff/limit);
+                  diff=diff%limit;
+            }
+            else
+            {
+                diff=0;
+                count++;
+            }
+        }
+        return  count;
+    }
+};

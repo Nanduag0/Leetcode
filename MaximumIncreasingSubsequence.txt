@@ -1,0 +1,31 @@
+	public:
+	int maxSumIS(int arr[], int n)  
+	{  
+	    // Your code goes here
+	    int dp[n];
+	    if(n==1)
+	    return arr[0];
+	    
+	    dp[0]=arr[0];
+	    int ans=dp[];
+	    for(int i=1;i<n;i++)
+	    {
+	        int maxim=0;
+	        for(int j=0;j<i;j++)
+	        {
+	            if(arr[i]>arr[j])
+	            {
+	                maxim=max(maxim,dp[j]);
+	            }
+	        }
+	        if(maxim==0)
+	        dp[i]=arr[i];
+	        else
+	        dp[i]=arr[i]+maxim;
+	        ans=max(ans,dp[i]);
+	    }
+	    
+	    return ans;
+	    
+	}  
+};

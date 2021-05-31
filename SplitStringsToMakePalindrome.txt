@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool checkPalindromeFormation(string a, string b) 
+    {
+       return (check(a,b) || check(b,a));
+    }
+    bool check(string a,string b)
+    {
+        int l=0;
+        int r=b.length()-1;
+        while(l<r && a[l]==b[r])
+        {
+            l++;
+            r--;
+        }
+        if(l>=r)
+            return true;
+        
+        return (isPalindrome(b.substr(l,r-l+1)) || isPalindrome(a.substr(l,r-l+1)));
+        
+    }
+    bool isPalindrome(string p)
+    {
+        int m=0,n=p.length()-1;
+        while(m<=n)
+        {
+            if(p[m]!=p[n])
+            {
+                return false;
+            }
+            m++;
+            n--;
+        }
+        return true;
+    }
+};

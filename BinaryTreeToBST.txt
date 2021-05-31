@@ -1,0 +1,35 @@
+class Solution{
+  public:
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BS
+    Node *binaryTreeToBST (Node *root)
+    {
+        //Your code goes here
+        vector<int> vec;
+        inorder(root,vec);
+        sort(vec.begin(),vec.end());
+        return solve(vec,0,vec.size()-1);
+    }
+    void inorder(Node *root,vector<int> &vec)
+    {
+      if(root==NULL)
+      return;
+      inorder(root->left,vec);
+      vec.push_back(root->data);
+      inorder(root->right,vec);
+      return;
+      
+    }
+    Node *solve(vector<int> v,int lb,int ub)
+    {
+     if(lb>ub)
+     return NULL;
+     int mid=lb+(ub-lb)/2;
+     Node *temp=new Node(v[mid]);
+     if(lb==ub)
+     return temp;
+     temp->left=solve(v,lb,mid-1);
+     temp->right=solve(v,mid+1,ub);
+     return temp;
+    }
+};

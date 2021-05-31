@@ -1,0 +1,29 @@
+class Solution{
+    public:
+    long long int maximizeSum(long long int a[], int n, int k)
+    {
+        // Your code goes here
+        long long int sum=0;
+        long long int minim=INT_MAX;
+        sort(a,a+n);
+        for(long long int  i=0;i<n;i++)
+        {
+            if(a[i]<0 && k>0)
+            {
+                a[i]=-1*a[i];
+                k--;
+            }
+            minim=min(minim,a[i]);
+            sum+=a[i];
+        }
+        if(k!=0)
+        {
+            if(k&1)//odd
+            {
+                sum-=(2*minim);
+            }
+        }
+        return sum;
+        
+    }
+};

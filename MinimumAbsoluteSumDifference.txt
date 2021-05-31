@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int minAbsoluteSumDiff(vector<int>& nums1, vector<int>& nums2) {
+      
+        vector<int> diff(nums1.size());
+        long long sum=0;
+        for(int i=0;i<nums1.size();i++)
+        {
+            diff[i]=abs(nums1[i]-nums2[i]);
+            sum+=diff[i];
+        }
+        sort(nums1.begin(),nums1.end());
+        int maxim=0;
+        for(int i=0;i<nums2.size();i++)
+        {
+            
+            int x=calc(nums2[i],nums1);
+            if(x<diff[i])
+            {
+                maxim=max(abs(x-diff[i]),maxim);
+            }
+        }
+        return (sum-maxim)%(1000000000 + 7);
+    }
+    int  calc(int y,vector<int> &vec)
+    {
+        int l=0;
+        int h=vec.size()-1;
+        int res=10000;
+        while(l<=h)
+        {
+            int mid=l+(h-l)/2;
+            res=min(res,abs(y-vec[mid]));
+            if(vec[mid]==y)
+            {
+                return 0;
+            }
+            else
+            if(vec[mid]>y)
+            {
+                h=mid-1;
+            }
+            else
+                l=mid+1;
+        }
+        return res;
+        
+    }
+};

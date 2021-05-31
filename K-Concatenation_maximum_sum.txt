@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int kConcatenationMaxSum(vector<int>& arr, int k) 
+    {
+        long long  sum=0;
+        vector<int> narr(2*arr.size());
+        for(int i=0;i<arr.size();i++)
+        {
+            sum+=arr[i];
+        }
+         for(int i=0;i<arr.size();i++)
+                narr[i]=arr[i];
+            for(int j=0;j<arr.size();j++)
+            {
+                narr[j+arr.size()]=arr[j];
+            }
+        if(sum<=0 && k>1)
+        {
+            return (kadane(narr))%1000000007;
+        }
+        else if(sum>0 && k>=2)
+        {
+            long long int val=kadane(narr);
+            return ((((k-2)*sum)%1000000007)+val)%1000000007;
+        }
+        else 
+            return kadane(arr)%1000000007;
+        return 0;
+    }
+    long long  kadane(vector<int> narr)
+    {
+        int  currmax=0,maxim=0;
+        for(int i=0;i<narr.size();i++)
+        {
+            currmax=max(narr[i],narr[i]+currmax);
+            maxim=max(maxim,currmax);
+        }
+        return maxim;
+    }
+ 
+};

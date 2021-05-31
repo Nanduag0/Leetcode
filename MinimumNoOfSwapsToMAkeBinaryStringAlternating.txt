@@ -1,0 +1,58 @@
+class Solution 
+{
+public:
+    int minSwaps(string s) 
+    {
+        string S=s;
+        int i=0;
+        int cnt0=0,cnt1=0;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]=='0')
+                cnt0++;
+            else
+                cnt1++;
+            
+        }
+        if(abs(cnt1-cnt0)>1)
+            return  -1;
+        
+       int j=S.length()-1;
+    int counto=0,counte=0;
+    string s1="",s2="";
+    for(int i=0;i<s.length();i++)
+    {
+            if(i%2==0){
+                s1+='0';
+                s2+='1';
+            }
+            else{
+                s1+='1';
+                s2+='0';
+            }
+        }
+        if(cnt1==cnt0)
+        {
+            for(int i=0;i<s.length();i++)
+            {
+                if(s[i]!=s1[i])
+                    counto++;
+                if(s[i]!=s2[i])
+                    counte++;
+            }
+            return min(counto/2,counte/2);
+        }
+        int cnt =0;
+        if(cnt1>cnt0)
+        {
+            s1=s2;
+        }
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]!=s1[i])
+                cnt++;
+        }
+        return cnt/2;
+        
+    }
+};

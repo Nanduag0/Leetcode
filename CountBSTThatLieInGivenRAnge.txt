@@ -1,0 +1,27 @@
+void inorder(Node *root,vector<int> &vec);
+
+//Function to count number of nodes in BST that lie in the given range.
+int getCount(Node *root, int l, int h)
+{
+    vector<int> vec;
+    inorder(root,vec);
+    int count=0;
+    for(int i=0;i<vec.size();i++)
+    {
+        if(vec[i]>=l && vec[i]<=h)
+        count++;
+    }
+    return count;
+  // your code goes here   
+}
+
+
+void inorder(Node *root,vector<int> &vec)
+{
+    if(root==NULL)
+    return;
+    inorder(root->left,vec);
+    vec.push_back(root->data);
+    inorder(root->right,vec);
+    return;
+}
