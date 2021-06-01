@@ -1,0 +1,43 @@
+class Solution {
+public:
+    bool isHappy(int n)
+    {
+     
+        // 4
+        // 16
+        // 1+36= 37
+        // 9+49= 58
+        // 25+64= 89
+        // 64+81 = 145
+        // 1+16+25 =    42
+        // 16+4 = 20
+        // 4 
+    long long org=n;
+    long long sum=0;
+    long long k;
+    long long t=0;
+    long long p=n;
+    vector<long long> vec;
+     while(n)
+     {
+         k=n;
+         while(k)
+         {
+             sum+=pow((k%10),2);
+             k=k/10;
+         }
+         if(find(vec.begin(),vec.end(),sum)==vec.end())
+         vec.push_back(sum);
+         else
+             break;
+         n=sum;
+         if(n==1)
+             break;
+         sum=0;
+     }
+        if(n==1)
+            return true;
+        return  false;
+        
+    }
+};
