@@ -1,0 +1,23 @@
+public:  
+    bool wordBreak(string s, vector<string>& wordDict) 
+    {
+     bool dp[s.length()+1];
+     memset(dp,false,sizeof(dp));
+     dp[s.length()]=true;
+     for(int i=s.length()-1;i>=0;i--)
+     {
+         for(string u: wordDict)
+         {
+             if(i+u.length()<=s.length() && find(wordDict.begin(),wordDict.end(),s.substr(i,u.length()))!=wordDict.end())
+             {
+                 dp[i]=dp[i+(u.length())];
+             }
+             if(dp[i]==true)
+                 break;
+         }
+
+     }
+        return dp[0];
+        
+    }
+};
