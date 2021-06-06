@@ -1,0 +1,53 @@
+class Solution
+{
+    public:
+    //Function to find minimum number of attempts needed in 
+    //order to find the critical floor.
+    int eggDrop(int n, int k) 
+    {
+        int N=n,K=k;
+        if(N==0 || k==0)
+        return 0;
+        
+          int dp[N+1][K+1];
+       // memset(dp,0,sizeof(dp));
+        int minim;
+        for(int i=0;i<=N;i++)
+        {
+            dp[i][0]=0;
+        }
+        for(int i=0;i<=N;i++)
+        {
+            dp[i][1]=1;
+        }
+        
+        for(int i=1;i<=N;i++)
+        {
+            for(int j=1;j<=K;j++)
+            {
+                if(i==1)
+                {
+                    dp[i][j]=j;
+                }
+                else
+                if(j==1)
+                {
+                    dp[i][j]=1;
+                }
+                else
+                {
+                    minim=INT_MAX;
+                    int pj=0;
+                    for(int p=j-1;p>=0;p--)
+                    {
+                        int val=max(dp[i-1][pj],dp[i][p]);
+                        minim=min(val,minim);
+                        pj++;
+                    }
+                     dp[i][j]=minim+1;
+                }
+            }
+        }
+        return dp[N][K];
+    }
+};

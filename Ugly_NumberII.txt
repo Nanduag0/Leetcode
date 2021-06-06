@@ -1,0 +1,37 @@
+class Solution {
+public:
+    int nthUglyNumber(int n) 
+    {
+        long long int  dp[n];
+        memset(dp,0,sizeof(dp));
+        long long int num1=2,num2=3,num3=5;
+        long long  i=0,j=0,k=0;
+        dp[0]=1;
+        int minim=0;
+        vector<long long int > vec;
+        for(int m=1;m<n;m++)
+        {
+            minim=min(num1,min(num2,num3));
+            dp[m]=minim;
+            cout<<minim<<" ";
+            if(minim==num1)
+            {
+                   i=i+1;
+                   num1=dp[i]*2;
+            }
+            if(minim==num2)
+            {
+                  j=j+1;
+                num2=dp[j]*3;
+            }
+          
+            if(minim==num3)
+            {
+                k=k+1;
+                num3=dp[k]*5;  
+            }
+        }
+        return dp[n-1];
+        
+    }
+};
