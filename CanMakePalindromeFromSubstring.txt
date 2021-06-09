@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<bool> canMakePaliQueries(string s, vector<vector<int>>& queries) 
+    {
+       //have to use DP  ! !  ! ! !  
+      vector<int> vec(26,0);
+      vector<vector<int>> prefix;
+      for(char c : s)
+      {
+          vec[c-'a']++;
+          prefix.push_back(vec);
+      }
+        vector<bool> ans;
+        for(int p=0;p<queries.size();p++)
+        {
+            int l=queries[p][0];
+            int h=queries[p][1];
+            int changes=queries[p][2];
+            vector<int> curr(26,0);
+            if(l==0)
+            {
+                curr=prefix[h];
+            }
+            else
+            {
+                for(int k=0;k<26;k++)
+                {
+                    curr[k]=prefix[h][k]-prefix[l-1][k];
+                }
+            }
+            int val =cnt(curr);
+            ans.push_back(val<=changes);
+            
+        }
+        return ans;
+        
+    }
+    int cnt(vector<int> v)
+    {
+        int count=0;
+        for(int i=0;i<v.size();i++)
+        {
+            if(v[i]&1)
+              count++;  
+        }
+        return count/2;
+        
+    }
+};
+
+       

@@ -1,0 +1,59 @@
+class Solution{
+public:
+    int palindromicPartition(string str)
+    {
+        bool dp[str.length()][str.length()];
+        memset(dp,false,sizeof(dp));
+        for(int g=0;g<str.length();g++)
+        {
+            int j=g;
+            for(int i=0;j<str.length();i++)
+            {
+                    if(g==0)
+                    {
+                        dp[i][j]=true;
+                    }
+                    else
+                    if(g==1)
+                    {
+                    if(str[i]==str[j])
+                    dp[i][j]=true;
+                    }
+                    else
+                    {
+                        if(str[i]==str[j] && dp[i+1][j-1]==true)
+                        {
+                            dp[i][j]=true;
+                        }
+                        else
+                        dp[i][j]=false;
+                    }
+                j++;
+            }
+        }
+        int st[str.length()];
+        memset(st,0,sizeof(st));
+        st[0]=0;
+        for(int i=1;i<str.length();i++)
+        {
+             int minim=INT_MAX;
+            if(dp[0][i]==true)
+            {
+                st[i]=0;
+            }
+            else
+            {
+                for(int j=i;j>=1;j--)
+                {
+                    if(dp[j][i])
+                    if(st[j-1]<minim)
+                    minim=st[j-1];
+                }
+                st[i]=minim+1;
+            }
+        }
+        return st[str.length()-1];
+        
+        // code here
+    }
+};
