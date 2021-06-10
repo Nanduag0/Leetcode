@@ -1,0 +1,23 @@
+class Solution {
+public:
+    unordered_map<int,int> mp;
+    int combinationSum4(vector<int>& nums, int target)
+    {
+        sort(nums.begin(),nums.end());
+        unsigned long long int  dp[target+1];
+        memset(dp,0,sizeof(dp));
+        dp[0]=1;
+        for(int i=1;i<=target;i++)
+        {
+            for(int s : nums)
+            {
+                if(s<=i)
+                    dp[i]+=dp[i-s];
+                else
+                    break;
+            }
+        }
+        return dp[target];
+    }
+  
+};
