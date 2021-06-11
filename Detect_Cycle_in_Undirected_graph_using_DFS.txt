@@ -1,0 +1,36 @@
+class Solution 
+{
+    public:
+    //Function to detect cycle in an undirected graph.
+	bool isCycle(int V, vector<int>adj[])
+	{
+	    // Code here
+	  vector<bool> visited(V,false);
+	  for(int i=0;i<V;i++)
+	  {
+	      if(!visited[i])
+	      {
+	          if(checkforcycle(i,visited,adj,-1))
+	          return true;
+	      }
+	  }
+	  return false;
+	}
+	bool checkforcycle(int s,vector<bool> &visited,vector<int> adj[],int parent)
+	{
+	    visited[s]=true;
+	    for(auto it : adj[s])
+	    {
+	        if(!visited[it])
+	        {
+	            if(checkforcycle(it,visited,adj,s))
+	            return true;
+	        }
+	        else
+	        if(it!=parent)
+	        return true;
+	        
+	    }
+	    return false;
+	}
+};
