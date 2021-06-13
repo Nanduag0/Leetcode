@@ -1,0 +1,29 @@
+Bellman Ford Algorithm:
+Time Complexity -- O(E) * O(N-1) which is  too bad
+
+vector<vector<int>> vec;
+main()
+{
+  vector<int> distance(V);
+  distance[0]=0;
+  for(int i=1;i<=N-1;i++)
+ {
+   for(auto it : edges)
+   {
+      if(vec[it[0]]+vec[it[2]]<vec[it[1]])
+     {
+       vec[it[1]]=vec[it[0]]+vec[it[2]];
+     }
+    }
+  }
+  for(auto it: edges)
+  {
+   if(vec[it[1]] + vec[it[2]] <vec[it[1])
+   {
+      cout<<"There is negative weight cycle"; 
+      break;
+  }
+ } 
+}
+
+    

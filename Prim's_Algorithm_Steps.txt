@@ -54,4 +54,52 @@ Steps
   means that there is no cycle then add the cost and push the edges to the mst vector.
 3)At the end make sure to find union of the edges.
 
+Aritulation Points:
+
+1) Take the time of insertion and the lowest insertion time array
+2) Make a isArticulation vector and assign it to 0
+3) Make the dfs call 
+4)  Mark the current node visisted.
+5) update the insertion and lower time array.
+6) Iterate through all the nodes make dfs call and as soon as the dfs gets overs borrow the minimum 
+    insertion time from the adjacent node.
+7) Keep on borrowing the lower time from the adjacent node and check if lower time of adjacent is greater than or equal to
+   insertion time of node and parent!=-1 
+   then make insertion[node]=1;
+8) Keep a child counter for the parent node and atlast if parent==-1 && child>1 
+   isArticulate[node]=1 for the parent as well.
+
+dfs(vector<int> &low,vector<int> &tin,vector<int> &articulate,int node,int parent,int &timer)
+{
+  vis[node]=1;
+  tin[node]=low[node]=timer++;
+  int child=0;
+  for(auto it : adj[node])
+  {
+   if(it==parent)
+    continue;
+    if(!visited[i])
+     {
+       dfs(low,tin,articulate,it,node,timer);
+       low[node]=min(low[node],low[it]);
+       if(low[it]>=tin[node] && parent!=-1)
+       {
+         isArticulate[node]=1 ;
+        }
+       child++;
+      }
+          else
+        {
+          low[node]=min(low[node],tin[node]);
+         }
+      }
+   if(parent==-1 && child>1)
+   {
+     articulate[node]=1;
+    }
+}
+*** Pick all the points where articulate[node]==1 ;
+
+
+
 
