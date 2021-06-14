@@ -8,6 +8,44 @@ Prim's Algorithm:
   step 3.
 6) You will have your mst in parent array.
 
+
+
+vector<int> key(N,INT_MAX-1);
+vector<int> mst(false,0);
+vector<int> parent(N,-1);
+main()
+{
+  priority_queue<pair<int,int>,vector<pair<int,int>,greater<pair<int,int>> pq;
+  key[0]=0;
+  mst[0]=true;
+  parent[0]=-1; 
+  pq.push({0,0});
+   for(int count=0;count<N-1;count++)
+   {
+     int   x =pq.top().second;
+     pq.pop();
+     mst[x]=true;
+     for(auto it : adj[x])
+    {
+     int v=it.first;
+     int weight=it.second;
+     if(mst[v]==false && weight<key[v])
+     {
+       parent[v]=u;
+       pq.push({key[v],v});
+       key[v]=weight;
+     }
+    }
+   }
+  }
+
+
+     
+
+
+
+
+
 Disjoint Set and Path compression 
 
 parent[100000]
@@ -53,6 +91,42 @@ Steps
 2)iterate over the edges and see if the egdes are not a part of the same component 
   means that there is no cycle then add the cost and push the edges to the mst vector.
 3)At the end make sure to find union of the edges.
+
+
+vector<node> edges ;
+bool cmp(Node a ,Node b)
+{
+ a.weight>b.weight;
+}
+sort(edges.begin(),edges.end(),cmp)
+vector<int> parent(N);
+for(int i=0;i<N;i++)
+{
+  parent[i]=i;
+}
+  vector<pair<int,int>> mst;
+  for(auto it : edges)
+{
+   if(findPar(it.v,parent)!=findPar(it.u,parent))
+   {
+    cost+=it.wt;
+    mst.push-back(it.u,it.v);
+    union(it.u,it.v,parent,rank);
+  }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Aritulation Points:
 

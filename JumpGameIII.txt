@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool canReach(vector<int>& arr, int start)
+    {
+       vector<bool> visited(arr.size(),false);
+       return  solve(arr,start,visited);
+    }
+    bool solve(vector<int> &arr,int start,vector<bool> &visited)
+    {
+        // queue<int> que;
+        // que.push(start);
+        // while(!que.empty())
+        // {
+        //     int x=que.front();
+        //     que.pop();
+        //     if(arr[x]==0)
+        //     return true;
+        //     if(visited[x])
+        //         continue;
+        //     visited[x]=true;
+        //     if(x+arr[x]>=0 && x+arr[x]<arr.size() && !visited[x+arr[x]])
+        //     {
+        //         que.push(x+arr[x]);
+        //     }
+        //     if(x-arr[x]>=0 && x-arr[x]<arr.size() && !visited[x-arr[x]])
+        //     {
+        //         que.push(x-arr[x]);
+        //     }
+        // }
+        if(start<0 || start>=arr.size() || visited[start]==true)
+        {
+            return false;
+        }
+        if(arr[start]==0)
+            return true;
+        visited[start]=true;
+        return solve(arr,start+arr[start],visited) || solve(arr,start-arr[start],visited) ;
+    }
+};
