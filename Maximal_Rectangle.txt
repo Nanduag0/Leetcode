@@ -1,0 +1,105 @@
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) 
+    {
+        // NSR 
+        // NSL 
+        // right-left-1 
+        // width(height)
+        if(matrix.size()==0)
+            return 0;
+        
+        vector<int> vec(matrix[0].size());
+        for(int i=0;i<matrix[0].size();i++)
+        {
+            vec[i]=(matrix[0][i]-'0');
+        }
+        int maxim=maximalhistogram(vec,matrix[0].size());
+        // cout<<maxim<<" ";
+        if(matrix.size()==1)
+            return maxim;
+        
+        int ans=maxim;
+        for(int i=0;i<matrix.size();i++)
+        {
+            maxim=0;
+            vector<int> vec(matrix[0].size());
+           for(int k=0;k<matrix[0].size();k++)
+           {
+               vec[k]=matrix[i][k]-'0';
+           }
+            for(int j=i+1;j<matrix.size();j++)
+            {
+                for(int m=0;m<matrix[0].size();m++)
+                {
+                    if(matrix[j][m]=='0')
+                        vec[m]=matrix[j][m]-'0';
+                    else
+                     vec[m]+=(matrix[j][m]-'0');
+                }
+               maxim=max(maxim,maximalhistogram(vec,matrix[0].size()));
+               cout<<maxim;
+            }
+            ans=max(ans,maxim);
+        }
+        return ans;
+        
+//         [["1","0","1","1","1","1","0","1","1"],["0","1","0","1","0","0","0","0","0"],["0","0","0","0","1","0","1","1","0"],["1","1","1","0","1","0","1","0","1"]]
+        
+//         1 0 1 1 1 1 0 1 1 
+//         0 1 0 1 0 0 0 0 0 
+//         0 0 0 0 1 0 1 1 0
+//         1 1 1 0 1 0 1 0 1 
+            
+    }
+    int maximalhistogram(vector<int> vec,int l)
+    {
+        vector<int> n1(l);
+        stack<int> s;
+        for(int i=0;i<l;i++)
+        {
+            if(s.empty())
+            {
+                n1[i]=-1;
+            }
+            else
+            {
+                while(!s.empty() && vec[s.top()]>vec[i])
+                {
+                    s.pop();
+                }
+                n1[i]=s.empty()?-1:s.top();
+            }
+            s.push(i);
+        }
+      
+        vector<int> n2(l);
+        stack<int> ss;
+        for(int i=l-1;i>=0;i--)
+        {
+            if(ss.empty())
+                n2[i]=l;
+            else
+            {
+                while(!ss.empty() && vec[ss.top()]>=vec[i])
+                {
+                    ss.pop();
+                }
+                n2[i]=ss.empty()?l:ss.top();
+            }
+            ss.push(i);
+        }
+        vector<int> result(l);
+        for(int i=0;i<n1.size();i++)
+        {
+           result[i]=n2[i]-n1[i]-1;
+        }
+        int sum=0;
+        
+     for(int i=0;i<n1.size();i++)
+     {
+         sum=max((result[i])*vec[i],sum);
+     }
+        return sum;
+    }
+};

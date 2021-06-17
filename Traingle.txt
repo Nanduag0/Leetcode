@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) 
+    {
+         vector<vector<int>>dp(triangle.size(),vector<int>(triangle.size(),-1));
+        int result=sol(0,0,triangle,dp);
+        return result;
+    }
+   int sol(int i,int j,vector<vector<int>>& triangle,vector<vector<int>>&dp)
+   {
+    if(i>triangle.size()-1 ){
+        return 0;
+    }
+    
+    if(dp[i][j]!=-1){
+        return dp[i][j];
+    }
+    
+    dp[i][j]=min(sol(i+1,j,triangle,dp),sol(i+1,j+1,triangle,dp))+triangle[i][j];
+    return dp[i][j];
+}
+};

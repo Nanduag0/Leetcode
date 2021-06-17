@@ -1,0 +1,81 @@
+
+BFS Approach:
+
+vector<int> colour(N,-1)
+vector<int> visited(N,0)
+main()
+{
+  for(int i=0;i<N;i++)
+  {
+   if(!visited[i])
+   {
+     if(bfs(visited,colour,i)
+       return true;
+   }
+ }
+  return false;
+}
+
+ bool  bfs(vector<int> visited,vector<int> colour,int i)
+ {
+    visited[i]=1;
+    que.push(i);
+    colour[i]=1;
+    while(!que.empty())
+   {
+     int x=que.top();
+     que.pop();
+     for(auto it : adj[x])
+    {
+      if(colour[it]==-1)
+   {
+      visited[it]=1;
+      que.push(it);
+      colour[it]=1-colour[x];
+    }
+else
+    if(colour[x]==colour[it])
+    {
+    return false;
+    }
+  }
+  return true;
+}
+
+
+DFS Approach:
+
+main()
+{
+  vector<int> colour(N,-1)
+  vector<int> visited(N,0)
+  colour[0]=1;
+  for(int i=0;i<N;i++)
+  {
+   if(colour[i]==-1)
+   {
+    colour[i]=1;
+    if(!dfs(i,-1,colour,visited))
+    return false;
+   }
+  }
+return true;
+
+}
+ dfs(int node ,int parent,int colour,vector<int>  visited)
+ {
+   for(auto it :  adj[node])
+   {
+    if(colour[it]==-1)
+   {
+    colour[it]=1-colour[node];
+    if(!dfs(it,node,colour,visited))
+    return false;
+   }
+   else
+   if(colour[it]==colour[node])
+   return false;
+  }
+   return true;
+ }
+   

@@ -1,0 +1,39 @@
+class Solution{
+public:
+    int longestSubsequence(int N, int A[])
+    {
+        int dp[N];
+        dp[0]=1;
+        int maxim=0;
+        for(int i=1;i<N;i++)
+        {
+            int index=0;
+            for(int j=0;j<i;j++)
+            {
+                if(A[j]==A[i]-1 || A[j]==A[i]+1)
+                index=max(dp[j],index);
+            }
+            dp[i]=index+1;
+            maxim=max(dp[i],maxim);
+        }
+        //cout<<maxim<<"***";
+        int count=0;
+        // priority_queue<int> pq;
+        // for(int i=0;i<N;i++)
+        // {
+        //     pq.push(dp[i]);
+        // }
+        // int sum=0;
+        // while(!pq.empty() && sum<N)
+        // {
+        //     sum+=(pq.top());
+        //     pq.pop();
+        //     count++;
+        // }
+        if(maxim==0)
+        return N;
+        
+        return maxim;
+        // code here
+    }
+};

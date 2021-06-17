@@ -1,0 +1,36 @@
+
+    int maximumPath(int N, vector<vector<int>> Matrix)
+    {
+        // code here
+        int dp[N][N];
+        memset(dp,0,sizeof(dp));
+        for(int i=0;i<Matrix[0].size();i++)
+        {
+            dp[N-1][i]=Matrix[N-1][i];
+        }
+        for(int i=N-2;i>=0;i--)
+        {
+            for(int j=0;j<=N-1;j++)
+            {
+                if(j==0)
+                {
+                    dp[i][j]=Matrix[i][j]+max(dp[i+1][j],dp[i+1][j+1]);
+                }
+                else
+                if(j==N-1)
+                {
+                    dp[i][j]=Matrix[i][j]+max(dp[i+1][j-1],dp[i+1][j]);
+                }
+                else
+                dp[i][j]= Matrix[i][j]+max({dp[i+1][j-1],dp[i+1][j+1],dp[i+1][j]});
+            }
+        }
+        int maxim=0;
+        for(int i=0;i<N;i++)
+        {
+            //cout<<dp[0][i]<<" ";
+            maxim=max(maxim,dp[0][i]);
+        }
+        return maxim;
+    }
+};

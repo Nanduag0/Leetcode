@@ -1,0 +1,179 @@
+Prim's Algorithm:
+
+1) Have three array key, mst, and parent 
+2) Take node 0 mst as visited 
+3) See the adjacent nodes and iterate through it and mark them as visited
+4) Mark the key and the parent 
+5) Iterate through the array and find the node with the minimal key value and repeat
+  step 3.
+6) You will have your mst in parent array.
+
+
+
+vector<int> key(N,INT_MAX-1);
+vector<int> mst(false,0);
+vector<int> parent(N,-1);
+main()
+{
+  priority_queue<pair<int,int>,vector<pair<int,int>,greater<pair<int,int>> pq;
+  key[0]=0;
+  mst[0]=true;
+  parent[0]=-1; 
+  pq.push({0,0});
+   for(int count=0;count<N-1;count++)
+   {
+     int   x =pq.top().second;
+     pq.pop();
+     mst[x]=true;
+     for(auto it : adj[x])
+    {
+     int v=it.first;
+     int weight=it.second;
+     if(mst[v]==false && weight<key[v])
+     {
+       parent[v]=u;
+       pq.push({key[v],v});
+       key[v]=weight;
+     }
+    }
+   }
+  }
+
+
+     
+
+
+
+
+
+Disjoint Set and Path compression 
+
+parent[100000]
+rank[100000]
+main()
+{
+  for(int i=0;i<=n;i++)
+   {
+     parent[i]=i;
+     rank[i]=0;
+    }
+  }
+  int findPar(int node)
+{
+   if(node==parent[node])
+     return node;
+   return parentnode=findPar(parent[node]);
+}
+void union()
+{
+  u=findPar(u);
+  v=findPar(v);
+  if(rank[u]<rank[v])
+   {
+     parent[u]=v;
+   }
+   else if(rank[v]<rank[u])
+   {
+    parent[v]=u;
+   }
+   else
+   {
+    parent[v]=u;
+    rank[u]++;
+    }
+}
+    
+Krushkals Algorithm
+
+Steps
+
+1)Sort All the edges according to the weight 
+2)iterate over the edges and see if the egdes are not a part of the same component 
+  means that there is no cycle then add the cost and push the edges to the mst vector.
+3)At the end make sure to find union of the edges.
+
+
+vector<node> edges ;
+bool cmp(Node a ,Node b)
+{
+ a.weight>b.weight;
+}
+sort(edges.begin(),edges.end(),cmp)
+vector<int> parent(N);
+for(int i=0;i<N;i++)
+{
+  parent[i]=i;
+}
+  vector<pair<int,int>> mst;
+  for(auto it : edges)
+{
+   if(findPar(it.v,parent)!=findPar(it.u,parent))
+   {
+    cost+=it.wt;
+    mst.push-back(it.u,it.v);
+    union(it.u,it.v,parent,rank);
+  }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Aritulation Points:
+
+1) Take the time of insertion and the lowest insertion time array
+2) Make a isArticulation vector and assign it to 0
+3) Make the dfs call 
+4)  Mark the current node visisted.
+5) update the insertion and lower time array.
+6) Iterate through all the nodes make dfs call and as soon as the dfs gets overs borrow the minimum 
+    insertion time from the adjacent node.
+7) Keep on borrowing the lower time from the adjacent node and check if lower time of adjacent is greater than or equal to
+   insertion time of node and parent!=-1 
+   then make insertion[node]=1;
+8) Keep a child counter for the parent node and atlast if parent==-1 && child>1 
+   isArticulate[node]=1 for the parent as well.
+
+dfs(vector<int> &low,vector<int> &tin,vector<int> &articulate,int node,int parent,int &timer)
+{
+  vis[node]=1;
+  tin[node]=low[node]=timer++;
+  int child=0;
+  for(auto it : adj[node])
+  {
+   if(it==parent)
+    continue;
+    if(!visited[i])
+     {
+       dfs(low,tin,articulate,it,node,timer);
+       low[node]=min(low[node],low[it]);
+       if(low[it]>=tin[node] && parent!=-1)
+       {
+         isArticulate[node]=1 ;
+        }
+       child++;
+      }
+          else
+        {
+          low[node]=min(low[node],tin[node]);
+         }
+      }
+   if(parent==-1 && child>1)
+   {
+     articulate[node]=1;
+    }
+}
+*** Pick all the points where articulate[node]==1 ;
+
+
+
+

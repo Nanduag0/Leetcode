@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) 
+    {
+      queue<int> que;
+      int V=numCourses;
+	  vector<int> vec(V,0);
+	  for(int i=0;i<prerequisites.size();i++)
+      {
+          vec[prerequisites[i][1]]++;
+      }
+        vector<int> adj[V];
+        for(int i=0;i<prerequisites.size();i++)
+        {
+            adj[prerequisites[i][0]].push_back(prerequisites[i][1]);
+        }
+	  for(int i=0;i<vec.size();i++)
+	  {
+	      if(vec[i]==0)
+	      que.push(i);
+	  }
+	  vector<int> topo;
+	  while(!que.empty())
+	  {
+	      int node=que.front();
+	      topo.push_back(node);
+	      que.pop();
+	      for(auto it : adj[node])
+	      {
+	          vec[it]--;
+	          if(vec[it]==0)
+	          que.push(it);
+	      }
+	  }
+        if(topo.size()==V)
+            return true;
+	 return false;
+        
+        
+    }
+};

@@ -1,0 +1,38 @@
+Steps:
+
+1) Make a priority_queue with pair<distance,node>
+2) Make a distance array 
+3) Insert pair<0,source> to the priority_queue 
+4) pop the element and then iterate over the elements and if the distance from the node is less than that in 
+   the array modify it and push it to the priority_queue.
+5) Repeat the same process.The minimum distance is in the distance array 
+
+
+
+  Bridge in graph
+
+  vector<int> tin(N,0)
+  vector<int> low(N,0)
+  dfs()
+{
+   vis[node]=1;
+   tin[node]=low[node]=timer++;
+   for(auto it : adj[node])
+   {
+    if(it==parent)
+    continue;
+    if(!visited[it])
+    {
+     dfs(it,node,timer);
+     //assigning minimum value of lower time from adjacent node
+     low[node]=min(low[node],low[it]);
+     if(low[it]>tin[node])
+     {
+       cout<<node<<" "<<it;
+     }
+   }
+    else
+    {
+      low[node]=min(low[node],tin[it]);
+    }
+}

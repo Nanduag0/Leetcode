@@ -1,0 +1,19 @@
+main()
+{
+  vector<int> distance(V,INT_MAX);
+  queue<int> que;
+  distance[0]=1;
+  que.push(0);
+  while(!que.empty())
+{
+   int x=que.front();
+   que.pop();
+   for(auto it : adj[node])
+   {
+    if(distance[x]+1<distance[it])
+    {
+     distance[it]=distance[x]+1;
+     que.push(it);
+    }
+ }
+}

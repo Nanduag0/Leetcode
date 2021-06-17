@@ -1,0 +1,64 @@
+class Solution
+{
+	public:
+	//Function to find number of strongly connected components in the graph.
+    int kosaraju(int V, vector<int> adj[])
+    {
+        //code here
+        stack<int> s;
+        vector<int> visited(V,0);
+        for(int i=0;i<V;i++)
+        {
+            if(!visited[i])
+            {
+                dfs(visited,adj,i,-1,s);
+            }
+        }
+        vector<int> transpose[V];
+        for(int i=0;i<V;i++)
+        {
+            visited[i]=0;
+            for(auto it: adj[i])
+            {
+                transpose[it].push_back(i);
+            }
+        }
+        int count=0;
+        while(!s.empty())
+        {
+            int x=s.top();
+            //cout<<x<<" ";
+            s.pop();
+            if(!visited[x])
+            {
+                reversedfs(visited,x,transpose);
+                count++;
+            }
+        }
+        return count;
+        
+    }
+    void dfs(vector<int> &visited,vector<int> adj[],int node,int parent,stack<int> &s)
+    {
+        visited[node]=1;
+        for(auto it : adj[node])
+        {
+            if(!visited[it])
+            {
+                dfs(visited,adj,it,node,s);
+            }
+        }
+        s.push(node);
+    }
+    void reversedfs(vector<int> &visited,int x ,vector<int> transpose[])
+    {
+        visited[x]=1;
+        for(auto it : transpose[x])
+        {
+            if(!visited[it])
+            {
+                reversedfs(visited,it,transpose);
+            }
+        }
+    }
+};

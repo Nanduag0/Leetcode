@@ -1,0 +1,46 @@
+class Solution{
+  public:
+    int dp[1001][1001];
+    /*You are required to complete this method */
+    bool isInterleave(string A, string B, string C) 
+    {
+        if(A.length()+B.length()!=C.length())
+        return false;
+        dp[A.length()][B.length()];
+        memset(dp,-1,sizeof(dp));
+        return solve(A,B,C,A.length(),B.length(),C.length());
+        //Your code here
+    }
+int solve(string A,string B,string C,int len1,int len2,int len3)
+    {
+        if(len3==0)
+        return 1;
+        if(dp[len1][len2]!=-1)
+        return dp[len1][len2];
+        int a=0,b=0;
+        if(A[len1-1]==C[len3-1] && len1-1>=0)
+        a =solve(A,B,C,len1-1,len2,len3-1);
+        if(B[len2-1]==C[len3-1] && len2-1>=0)
+        b=solve(A,B,C,len1,len2-1 ,len3-1);
+        
+        //cout<<a<<" "<<b<<"\n";
+        return dp[len1][len2]=a || b;
+        // solve(3,2,5)---B
+        // solve(2,2,4)---A
+        // solve(1,2,3)---A
+        // solve(1,1,2)--B
+        // solve(0,1,1)---A
+        // solve(0,0,0)---B
+        // return 0 || 1 
+        // a = solve(0,1,1)=1 
+        // dp[0][1]=1 ;
+        // solve(1,1,2)=1 
+        // dp[1][1]=1
+        // solve(1,2,3)=1 
+        // dp[1][2]=1;
+        // solve(2,2,4)=1 
+        // dp[2][2]=1
+        // solve(3,2,5)=1
+        // dp[3][2]=1
+        
+    }

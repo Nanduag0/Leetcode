@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) 
+    {
+        vector<vector<bool>> visited(image.size(),vector<bool>(image[0].size(),false));
+        solve(image,sr,sc,newColor,image[sr][sc],visited);
+        return image;
+        
+    }
+    void solve(vector<vector<int>> &image,int sr,int sc,int newColor,int color,vector<vector<bool>> &visited)
+    {
+        if(sr<0 || sr>=image.size() || sc<0 || sc>=image[0].size() || visited[sr][sc]==true)
+        {
+            return;
+        }
+        if(image[sr][sc]!=color)
+            return;
+        
+        image[sr][sc]=newColor;
+        visited[sr][sc]=true;
+        solve(image,sr+1,sc,newColor,color,visited);
+        solve(image,sr,sc+1,newColor,color,visited);
+        solve(image,sr,sc-1,newColor,color,visited);
+        solve(image,sr-1,sc,newColor,color,visited);
+         // visited[sr][sc]=false;
+        return;
+        
+    }
+};

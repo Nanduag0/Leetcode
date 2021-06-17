@@ -1,0 +1,27 @@
+main()
+{
+  vector<int> colour(V,0); 
+  vector<int> setcolor(V,-1);
+  vector<bool> visited(V,false);
+  setcolour[0]=0;
+  visited[0]=true;
+  for(int i=1;i<V;i++)
+  {
+   for(auto it : adj[i])
+   {
+    if(setcolor[it]!=-1 && visited[it]==true)
+    {
+      colour[V]=1;
+    }
+    for(int j=0;j<V;j++)
+   {
+     if(colour[i]!=1)
+     {
+      break;
+     }
+   }
+   setcolour[it]=j;
+   colour.assign(V,0);
+   visited[i]=true;
+ }
+   

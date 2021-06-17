@@ -1,0 +1,62 @@
+class Solution {
+public:
+    int ladderLength(string beginWord, string endWord, vector<string>& wordList)
+    {
+        if(find(wordList.begin(),wordList.end(),endWord)==wordList.end())
+        {
+            return 0;
+        }
+        auto it=find(wordList.begin(),wordList.end(),beginWord);
+        auto itr=find(wordList.begin(),wordList.end(),endWord);
+        if(wordList.size()==2 && it!=wordList.end() && itr!=wordList.end())
+        {
+            return 0;
+        }
+        unordered_set<string> un;
+        for(int i=0;i<wordList.size();i++)
+        {
+            un.insert(wordList[i]);
+        }
+        queue<string> que;
+        int ans=0;
+        que.push(beginWord);
+        int flag=0;
+        while(!que.empty())
+        {
+            ans++;
+            int  len=que.size();
+            for(int i=0;i<len;i++)
+            {
+                string s=que.front();
+                que.pop();
+                for(int j=0;j<s.size();j++)
+                {
+                    char ch=s[j];
+                    for(char cc='a';cc<='z';cc++)
+                    {
+                        if(cc==ch)
+                            continue;
+                        s[j]=cc;
+                        if(s==endWord)
+                        {
+                          flag==1;
+                          return ans+1;   
+                        }
+                           
+                        if(un.find(s)==un.end())
+                            continue;
+                        cout<<s<<" ";
+                        un.erase(s);
+                        que.push(s);
+                        //cout<<"*****";
+                    }
+                    s[j]=ch;
+                }
+            }
+        }
+       if(flag==0)
+           return 0;
+        
+       return ans;
+    }
+};
