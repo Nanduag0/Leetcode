@@ -1,0 +1,52 @@
+class Solution {
+public:
+    vector<double> calcEquation(vector<vector<string>>& equations, vector<double>& values, vector<vector<string>>& queries) 
+    {
+        unordered_map<string,vector<pair<string,double>>>  adj;
+        for(int i=0;i<equations.size();i++)
+        {
+            adj[equations[i][0]].push_back({equations[i][1],values[i]});
+            double wt=1/values[i];
+            adj[equations[i][1]].push_back({equations[i][0],wt});
+        }
+        vector<double> ans;
+        double val,cal;
+        for(int i=0;i<queries.size();i++)
+        {
+            val=1,cal=1;
+            string src=queries[i][0];
+            bool found=false;
+            map<string,bool> visited;
+            string dest=queries[i][1];
+            if(adj.find(dest)==adj.end())
+            {
+                ans.push_back(-1.00000);
+                continue;
+            }
+            dfs(src,visited,adj,dest,val,cal,found);
+            if(!found)
+                ans.push_back(-1.00000);
+            else
+                ans.push_back(cal);
+        }
+        return ans;
+    }
+    
+void dfs(string node,map<string,bool> visited,unordered_map<string,vector<pair<string,double>>> adj,string dest,double val,double &cal,bool &found)
+    {
+        visited[node]=true;
+        if(node==dest)
+        {
+             cal=val;
+             found=true;
+             return ;
+        }
+            for(auto it : adj[node])
+            {
+                 if(!visited[it.first])
+                 dfs(it.first,visited,adj,dest,val*(it.second),cal,found);
+            }
+               
+    }
+    
+};

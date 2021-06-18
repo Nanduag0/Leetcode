@@ -1,4 +1,4 @@
 1) Find the ajacency matrix 
 2) Find the degree mtrix 
-3)Laplacian Matrix=Degree Matrix-Adjacency Matrix 
-4)Number of Spanning trees=Co-factor of any element.
+3) Laplacian Matrix=Degree Matrix-Adjacency Matrix 
+4) Number of Spanning trees= Co-factor of any element.

@@ -1,0 +1,71 @@
+class Solution {
+public:
+    bool possibleBipartition(int n, vector<vector<int>>& dislikes) {
+        vector<int> adj[n+1];
+        for(int i=0;i<dislikes.size();i++)
+        {
+            adj[dislikes[i][0]].push_back(dislikes[i][1]);
+            adj[dislikes[i][1]].push_back(dislikes[i][0]);
+        }
+        vector<int> rev[n+1];
+        int mark=0;
+//         for(int i=1;i<=n;i++)
+//         {
+//             vector<int> no(n+1,0);
+//             for(auto it : adj[i])
+//             {
+//                 no[it]=1;
+//             }
+//             for(int k=1;k<=n;k++)
+//             {
+//                 if(no[k]==1 && k!=i)
+//                 {
+//                     mark=1;
+//                     rev[i].push_back(k);
+//                 }
+                    
+//             }
+//         }
+//         if(mark==0)
+//             return false;
+        
+        // for(int i=1;i<=n;i++)
+        // {
+        //     for(auto it: rev[i])
+        //     {
+        //         cout<<it<<" ";
+        //     }
+        //     cout<<"\n";
+        // }
+        
+        //check for biparite
+        vector<bool> visited(n+1,false);
+        vector<int> colour(n+1,-1);
+        for(int i=1;i<=n;i++)
+        {
+            if(colour[i]==-1)
+            {
+                colour[i]=1;
+                if(!dfs(visited,i,-1,colour,adj))
+                    return false;
+            }
+        }
+        return true;
+    }
+    bool dfs(vector<bool> &visited,int node,int parent,vector<int> &colour,vector<int> adj[])
+    {
+        for(auto it : adj[node])
+        {
+            if(colour[it]==-1)
+            {
+                colour[it]=1-colour[node];
+                if(!dfs(visited,it,node,colour,adj))
+                    return false;
+            }
+            else
+                if(colour[it]==colour[node])
+                    return false;
+        }
+        return true;
+    }
+};

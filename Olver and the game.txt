@@ -1,0 +1,62 @@
+#include<bits/stdc++.h>
+using namespace std;
+bool dfs(int mark,vector<int> adj[],int hide,vector<bool> visited,int node,int parent);
+
+int main()
+{
+	int n,x,y,q,mark,hide,find;
+	cin>>n;
+	vector<int> adj[n];
+        vector<int> intime[n];
+        vector<int> outtime[n];
+	for(int i=0;i<n;i++)
+	{
+      cin>>x>>y;
+	  adj[x].push_back(adj[y]);
+	  adj[y].push_back(adj[x]);
+	}
+	cin>>q;
+	vector<string> ans;
+        dfs(adj,0,intime,outtime,timer,-1);
+        for(int i=0;i<queries.size();i++)
+    {
+      cin>>mark>>x>>y;
+      if(!check(x,y) && !check(x,y))
+    {
+        return false;
+         continue; }
+      if(type==0)
+   {
+     if(check(y,x)
+      cout<<"YES";
+      else
+      cout<<"NO";
+   }
+  else
+  if(type==1)
+   {
+    if(check(x,y)
+    cout<<"YES";
+    else
+    cout<<"NO";
+  }
+
+
+}
+  void  dfs(vector<int> adj[],int node,vector<int> intime,vector<int> outtime,int par)
+{
+   intime[node]=timer++;
+   for(auto it : adj[node])
+  {
+     if(it!=par)
+     dfs(adj,it,intime,outtime,node)'
+  }
+  outtime[node]=timer++;  
+}
+bool check(int x,int y)
+{
+  if(intime[x]>intime[y] && outtime[x]<outtime[y])
+  {
+   return true;}
+ return  false;
+}

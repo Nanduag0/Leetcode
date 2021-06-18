@@ -1,0 +1,56 @@
+main()
+{
+  vector<bool> visited(V,false);
+  for(int i=0;i<V;i++)
+  {
+    if(!visited[i])
+   {
+     dfs(i,visited,s);
+   }
+  }
+  vector<int> order;
+  while(!s.empty())
+  {
+   order.push(s.top());
+   s.pop();
+  }
+  vector<int> distance(V,INT_MIN);
+  distance[src]=0;
+  for(int i=0;i<order.size();i++)
+  {
+   if(distance[order[i]]!=INT_MIN)
+  {
+   for(auto it : adj[order[i])
+  {
+   int u= distance[order[i]];
+   int wt=it.second;
+   int v=distance[it.first];
+   if(u+wt>v)
+   {
+    distance[it.first]=u+wt;
+   }
+ }
+  }
+  for(int i=0;i<V;i++)
+  {
+   if(i!=src && distance[i]!=INT_MIN)
+  {
+    cout<<src<<" "<<i<<" "<<distance[i];
+  }
+ }
+ }
+
+
+  dfs(int node,vector<bool> visited,stack<int> &S)
+  {
+    visited[node]=true;
+    for(auto it : adj[node])
+    {
+     if(!visited[it])
+    {
+      dfs(it,visited,s)
+    }
+    }
+    s.push(node);
+ }
+   

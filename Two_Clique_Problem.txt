@@ -1,0 +1,38 @@
+vector<int> g[v]
+vector<int> reverse[v];
+vector<int> dummy(v ,0)
+for(int i=0;i<v;i++)
+ {
+   dummy[i]=1;
+   for(auto it : g[i])
+  {
+    dummy[it]=1;
+  }
+  for(int j=0;j<v;j++)
+  {
+    if(dummy[j]==0)
+   {
+    reverse[i].push_back(j);
+    reverse[j].push_back(i);
+   }
+ }
+2) now call biparite graph
+ dfs(visited,node,parent,color,adj)
+{
+  visited[node]=true;
+  for(auto it : adj[node])
+  {
+    if(!visited[it])
+   {
+     color[it]=1-color[node];
+     if(!dfs(visited,it,node,color,adj))
+     return true;
+    }
+  else
+  if(color[it]==color[node])
+  {
+  return false;
+  }
+return false;
+
+}

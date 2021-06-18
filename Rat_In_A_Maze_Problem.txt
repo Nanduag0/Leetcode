@@ -1,0 +1,34 @@
+class Solution
+{
+    public:
+    vector<string> findPath(vector<vector<int>> &m, int n) 
+    {
+        // Your code goes here
+     vector<string> vec;
+     vector<vector<bool>> visited(m.size(),vector<bool>(m[0].size(),false));
+     vector<int> v;
+     string s;
+     solve(m,n,0,0,vec,s,visited);
+     return vec;
+    }
+     void solve(vector<vector<int>> m,int n,int i,int j,vector<string> &vec,string s,vector<vector<bool>> visited)
+    {
+        if(i<0 || i>=m.size() || j<0 || j>=m[0].size() || m[i][j]==0 || visited[i][j]==true)
+        {
+            return;
+        }
+        if(i==n-1 && j==n-1)
+        {
+            vec.push_back(s);
+            return;
+        }
+        visited[i][j]=true;
+        solve(m,n,i+1,j,vec,s+"D",visited);
+         solve(m,n,i,j-1,vec,s+"L",visited);
+        solve(m,n,i,j+1,vec,s+"R",visited);
+        solve(m,n,i-1,j,vec,s+"U",visited);
+       
+        visited[i][j]=false;
+        return;
+    }
+};

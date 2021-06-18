@@ -1,0 +1,22 @@
+1) You have the adjacency matrix
+
+2
+  main()
+{
+  adj[][]//input;
+  for(int i=0;i<V;i++)
+  {
+    for(int j=0;j<V;j++)
+    {
+       for(int k=0;k<V;k++)
+       {
+         if(graph[i][j] and graph[j][k] and graph[k][i])
+         count_traingles++;
+    }
+  }
+}
+   if(isDirected)
+   count_traingles=count_traingles/3;
+   else
+   count_traingles=count_triangles/6;
+ }
