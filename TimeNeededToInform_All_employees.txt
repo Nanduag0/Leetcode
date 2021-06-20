@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int numOfMinutes(int n, int headID, vector<int>& manager, vector<int>& informTime) 
+    {
+       if(n==1)
+           return 0;
+       unordered_map<int,vector<int>> adj;
+      for(int i=0;i<manager.size();i++)
+      {
+          if(i!=headID)
+          {
+              adj[manager[i]].push_back(i);
+          }
+      }
+      int endTime=0;
+      dfs(endTime,informTime[headID],headID,adj,informTime);
+      return endTime;
+    }
+    void dfs(int &endTime,int currtime,int node,unordered_map<int,vector<int>> &adj,vector<int> &informTime)
+    {
+        endTime=max(endTime,currtime);
+        for(auto it: adj[node])
+        {
+            dfs(endTime,currtime+informTime[it],it,adj,informTime);
+        }
+        
+    }
+};

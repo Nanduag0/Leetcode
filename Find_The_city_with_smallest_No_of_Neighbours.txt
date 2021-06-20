@@ -1,0 +1,66 @@
+class Solution {
+public:
+    int findTheCity(int n, vector<vector<int>>& edges, int distanceThreshold)
+    {
+        int ans=0;
+        int maxim=INT_MAX;
+        vector<int> node;
+        vector<vector<pair<int,int>>> vec(n);
+        for(int i=0;i<edges.size();i++)
+        {
+            vec[edges[i][0]].push_back({edges[i][1],edges[i][2]});
+            vec[edges[i][1]].push_back({edges[i][0],edges[i][2]});
+            
+        }
+        for(int k=0;k<n;k++)
+        {
+           priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+           vector<int> distance(n,INT_MAX);
+           pq.push({0,k});
+           distance[k]=0;
+           while(!pq.empty())
+           {
+               pair<int,int> p=pq.top();
+               int x=p.first;
+               int y=p.second;
+               pq.pop();
+               for(auto it : vec[y])
+               {
+                   int v=it.first;
+                   int wt=it.second;
+                   if(distance[v]>distance[y]+wt)
+                   {
+                       distance[v]=distance[y]+wt;
+                       pq.push({distance[v],v});
+                   }
+               }
+           }
+            for(auto it : distance)
+            {
+                cout<<it<<" ";
+            }
+            cout<<"\n";
+            // 0-------1
+            // |       |
+            // |       |
+            // |       |
+            // 4       2
+             int count=0;
+            for(int m=0;m<n;m++)
+               {
+                  if(m==k)
+                      continue;
+                   if(distance[m]<=distanceThreshold)
+                   {
+                      count++;
+                   }
+               }
+            if(count<=maxim)
+            {
+                maxim=count;
+                ans=k;
+            }
+        }
+        return ans;
+    }
+};

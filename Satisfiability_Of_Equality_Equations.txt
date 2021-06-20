@@ -1,0 +1,59 @@
+class Solution {
+public:
+    bool equationsPossible(vector<string>& equations)
+    {
+      unordered_map<string,vector<string>> mp;
+      for(int i=0;i<equations.size();i++)
+      {
+          if(equations[i].substr(1,2)=="==")
+          {
+              mp[equations[i].substr(0,1)].push_back(equations[i].substr(3,1));
+              mp[equations[i].substr(3,1)].push_back(equations[i].substr(0,1));
+          }
+          
+      }
+        unordered_map<string,bool> visited(mp.size());
+        unordered_map<string,int> colour(mp.size());
+        int color=1;
+      for(auto it : mp)
+      {
+          if(!visited[it.first])
+          {
+              dfs(visited,mp,color,it.first,colour);
+              color++;
+          }
+      }
+        for(int i=0;i<equations.size();i++)
+        {
+            if(equations[i].substr(1,2)=="!=")
+            {
+                if(mp.find(equations[i].substr(0,1))==mp.end() && mp.find(equations[i].substr(3,1))==mp.end())
+                {
+                    if(equations[i].substr(0,1)==equations[i].substr(3,1))
+                    {
+                        return false;
+                    }
+                    continue;
+                }
+                if(colour[equations[i].substr(0,1)]==colour[equations[i].substr(3,1)])
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+void dfs(unordered_map<string,bool> &visited,unordered_map<string,vector<string>> mp,int color,string node,unordered_map<string,int> &colour)
+    {
+        visited[node]=true;
+        colour[node]=color;
+        for(auto it : mp[node])
+        {
+            if(!visited[it])
+            {
+                dfs(visited,mp,color,it,colour);
+            }
+        }
+    }
+    
+};
