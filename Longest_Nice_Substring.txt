@@ -1,0 +1,56 @@
+class Solution {
+public:
+    
+   static  bool comparator(pair<int,string> a , pair<int,string> b)
+{
+    return (a.first)>(b.first);
+}
+    
+    string longestNiceSubstring(string s) 
+    {
+      unordered_map<char,char> un;
+      int maxim=0;
+      int flag=0;
+      int j,i;
+      vector<pair<int,string>> vec;
+      for(i=0;i<s.length()-1;i++)
+      {
+          un.insert({s[i],' '});
+          for(j=i+1;j<s.length();j++)
+          {
+             flag=0;
+             if(un.find(s[j]-32)!=un.end())
+             {
+                 un[s[j]-32]=s[j];
+             }
+              else
+              if(un.find(s[j]+32)!=un.end())
+              {
+                  un[s[j]+32]=s[j]; 
+              }  
+              else if(un.find(s[j])==un.end())
+                  un.insert({s[j],' '});
+            for(auto it : un)
+          {
+              if(it.second==' ')
+              {
+                flag=1;
+              }
+          }
+             if(flag!=1)
+          {
+           string a=s.substr(i,j-i+1);
+           if(a.length()>1)
+           vec.push_back(make_pair(a.length(),s.substr(i,j-i+1)));
+          }
+          }
+         
+          un.clear();
+      }
+        if(vec.size()==0)
+            return "";
+        sort(vec.begin(),vec.end(),comparator);
+        return vec[0].second;
+    }
+ 
+};

@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int binaryGap(int n) 
+    {
+        vector<int> dis;
+        int temp=n;
+        int pos=0;
+        while(n)
+        {
+            pos++;
+            if(n&1)
+            {
+                dis.push_back(pos);
+            }
+            n>>=1;
+        }
+        int maxim=0;
+        for(int i=0;i<dis.size()-1;i++)
+        {
+            maxim=max(maxim,abs(dis[i]-dis[i+1]));
+        }
+        return maxim;
+        
+        
+    }
+};

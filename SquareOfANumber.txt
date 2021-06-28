@@ -1,0 +1,49 @@
+int n ;
+
+int pos=0;
+int temp=n;
+ while(n)
+{
+  if(n&1)
+  {
+    res+=(temp<<pos);
+  }
+    pos++;
+  n>>=1;
+}
+
+
+
+Power of a Number 
+
+class Solution{
+    public:
+    //You need to complete this fucntion
+    
+    long long power(int N,int R)
+    {
+       //Your code here
+        //Your code here
+        if(R==0)
+        return 1;
+        long long res=power(N,R/2)%mod;
+        long long val=(res*res)%mod;
+        if(R%2!=0)
+        {
+            val=(val*N)%mod;
+        }
+      return val%mod;
+      
+        
+    }
+
+};
+
+Finding 7n/8
+
+(n<<3-n)>>3
+
+
+
+
+

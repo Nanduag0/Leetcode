@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int subsetXORSum(vector<int>& nums) {
+        int xortotal=0;
+        int xors=0;
+        combinations(nums,xors,xortotal,0);
+        return xortotal;
+    }
+    void combinations(vector<int>& nums,int xors,int &xortotal,int index)
+    {
+        if(index>nums.size())
+            return;
+        xortotal+=xors;
+        for(int j=index;j<nums.size();j++)
+        {
+            combinations(nums,xors^nums[j],xortotal,j+1);
+        }
+    
+    }
+};

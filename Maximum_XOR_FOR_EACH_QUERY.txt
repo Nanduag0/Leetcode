@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<int> getMaximumXor(vector<int>& nums, int maximumBit) {
+        int val = ((1<<maximumBit)-1);
+        vector<int> prefixxor(nums.size());
+        prefixxor[0]=nums[0];
+        for(int i=1;i<nums.size();i++)
+        {
+            prefixxor[i]=nums[i]^prefixxor[i-1];
+        }
+        vector<int> v(nums.size());
+        for(int i=0;i<nums.size();i++)
+        {
+            v[i]=prefixxor[i]^val;
+        }
+        reverse(v.begin(),v.end());
+        return v;
+        
+    }
+};

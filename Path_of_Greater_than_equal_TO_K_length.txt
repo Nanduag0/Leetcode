@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool pathMoreThanK(int V, int E, int k, int *a) 
+    { 
+       //  Code Here
+       if(k<=0)return false;
+       vector<pair<int,int>>adj[V];
+       for(int i=0;i<3*E;i+=3)
+       {
+           adj[a[i]].push_back({a[i+1],a[i+2]});
+           adj[a[i+1]].push_back({a[i],a[i+2]});
+       }
+        vector<bool>visited(V,false);
+        
+       if(solve(k,0,adj,visited))
+       return true;
+       return false;
+  }
+
+ bool solve(int k,int node,vector<pair<int,int>> adj[],vector<bool> &visited)
+{
+   visited[node]=true;
+   if(k<=0)
+   {
+    return true;
+   }
+   for(auto it : adj[node])
+  {
+    if(!visited[it.first])
+   {
+     if(solve(k-(it.second),it.first,adj,visited))
+      return true;
+   }
+  }
+    visited[node]=false;
+    return false;
+}
+    
+};

@@ -1,0 +1,48 @@
+A = 10101010101
+
+mask= 0001111100
+B=    10010011001
+
+
+A & mask = 00001010100
+
+mask | B=  10011010101
+
+
+create a l and r range mask for A 
+
+int mask=1<<(l-r+1)
+mask-=1;
+mask=mask<<(l-1)
+mask=mask&a
+int ans= mask | b
+
+
+Divide 
+
+ static int divide(int dividend, int divisor)
+    {
+         
+        // Calculate sign of divisor i.e.,
+        // sign will be negative only iff
+        // either one of them is negative
+        // otherwise it will be positive
+        int sign = ((dividend < 0) ^
+                (divisor < 0)) ? -1 : 1;
+     
+        // Update both divisor and
+        // dividend positive
+        dividend = Math.Abs(dividend);
+        divisor = Math.Abs(divisor);
+     
+        // Initialize the quotient
+        int quotient = 0;
+         
+        while (dividend >= divisor)
+        {
+            dividend -= divisor;
+            ++quotient;
+        }
+     
+        return sign * quotient;
+    }
