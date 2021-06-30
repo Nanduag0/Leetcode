@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) 
+    {
+         vector<vector<int>> ans;
+         vector<int> one,two;
+         one={1};
+        if(rowIndex==0)
+            return one;
+        two={1,1};
+        if(rowIndex==1)
+            return two;
+      vector<int> a;
+      a={1,1};
+      for(int j=2;j<=rowIndex;j++)
+      {
+         vector<int> temp;
+         for(int i=0;i<a.size();i++)
+      {
+          if(i==0 || i==a.size()-1)
+          temp.push_back(a[i]);
+          if(i!=a.size()-1)
+          temp.push_back(a[i]+a[i+1]);
+      }
+          ans.push_back(temp);
+          a=temp;
+      }
+    return ans[ans.size()-1];
+        
+    }
+};

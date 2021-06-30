@@ -1,0 +1,37 @@
+ public:
+    // arr[] : the input array
+    // N : size of the array arr[]
+    
+    //Function to return length of longest subsequence of consecutive integers.
+    int findLongestConseqSubseq(int arr[], int N)
+    {
+      //Your code here
+      vector<int> vec(N);
+      vector<int> :: iterator itr;
+      for(int i=0;i<N;i++)
+      {
+          vec[i]=arr[i];
+      }
+      sort(vec.begin(),vec.end());
+      itr=unique(vec.begin(),vec.end());
+      vec.resize(std::distance(vec.begin(),itr));
+      
+      int i=0,j=0,len=0;
+      while(j<N-1)
+      {
+          if(vec[j+1]-vec[j]==1)
+          {
+              
+          }
+          else
+          {
+              len=max(j-i+1,len);
+              i=j+1;
+          }
+          j++;
+      }
+      len=max(j-i+1,len);
+      return len;
+      
+    }
+};
