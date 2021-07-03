@@ -1,0 +1,16 @@
+int dp[n+1];
+dp[0]=false;
+dp[1]=true;
+for(int i=2;i<=n;i++)
+{
+  if(dp[i-1]==false && i-1>=0)
+  dp[i]=true;
+  if(dp[i-x]==false && i-x>=0)
+  dp[i]=true;
+  if(dp[i-y]==false && i-y>=0)
+  dp[i]=true;
+  else
+  dp[i]=false;
+}
+return dp[n];
+}

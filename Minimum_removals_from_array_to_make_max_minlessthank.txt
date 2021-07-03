@@ -1,0 +1,13 @@
+int dp[100001];
+memset(dp,-1,sizeof(dp));
+
+int solve(int a[],int i,int j,int k)
+{
+ if(i>=j)
+ return 0;
+ if(a[j[-a[i]<=k)
+ return 0;
+ if(dp[i]!=-1)
+ return dp[i];
+ return dp[i]=1+min(solve(i+1,j,k),solve(i,j-1,k));
+}

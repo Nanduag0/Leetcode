@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int integerBreak(int n)
+    {
+     int dp[n+1];
+     dp[0]=0;
+     dp[1]=1;
+     int maxim=max(dp[0],dp[1]);
+     for(int i=2;i<=n;i++)
+     {
+         if(i==n)
+             dp[i]=0;
+         else
+         if(n%i==0)
+         {
+             int t=n/i;
+             int pro=1;
+             while(t--)
+             {
+                 pro*=(i);
+             }
+             dp[i]=pro;
+         }
+     //    3+3+2
+         else
+         {
+             int t=n/i;
+             int pro=1;
+             if(t==1)
+             {
+                pro*=(i*(n%i));  
+                dp[i]=pro;
+             }
+             else
+             {
+                 while(t--)
+             {
+                 pro*=(i);
+             }
+             int one=pro*((n%i));
+             int two=(pro/i)*(i+(n%i));
+             dp[i]=max(one,two);
+             }
+         }
+        // cout<<dp[i]<<" ";
+         maxim=max(maxim,dp[i]);
+     }
+  //  3 + 3 + 2 
+        return maxim;
+            
+    }
+    
+};

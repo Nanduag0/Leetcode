@@ -1,0 +1,53 @@
+class Solution {
+public:
+    vector<int> largestDivisibleSubset(vector<int>& nums) 
+    { 
+        sort(nums.begin(),nums.end());
+        int dp[nums.size()];
+        dp[0]=1;
+        memset(dp,0,sizeof(dp));
+        int pointer=0;
+        int maxim=INT_MIN;
+        int lis[nums.size()];
+        memset(lis,-1,sizeof(lis));
+        int n=nums.size();
+        for(int i=1;i<n;i++)
+        {
+            int minim=INT_MIN;
+            for(int j=0;j<i;j++)
+            {
+                //cout<<"****";
+                if(nums[i]%nums[j]==0 && dp[j]+1>=dp[i])
+                    {
+                     // cout<<"****";
+                      dp[i]=dp[j]+1;
+                     // cout<<"****";
+                      lis[i]=j;
+                    }
+                        
+            }
+            if(maxim<dp[i])
+            {
+              maxim=dp[i];
+              pointer=i;
+            }
+        }
+        vector<int> v;
+        cout<<pointer<<"\n";
+        for(int i=0;i<nums.size();i++)
+        {
+            cout<<lis[i]<<" ";
+        }
+        while(1)
+        {
+               v.push_back(nums[pointer]);
+              // cout<<"****"<<"\n";
+               pointer=lis[pointer];
+               if(pointer==-1)
+                   break;
+        }
+        reverse(v.begin(),v.end());
+        return v;
+        
+    }
+};
