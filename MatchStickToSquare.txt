@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool makesquare(vector<int>& matchsticks) 
+    {
+         int sum=0;
+        for(int i=0;i<matchsticks.size();i++)
+            sum+=matchsticks[i];
+        if(matchsticks.size()<4 || sum%4!=0)
+            return false;
+        sum=sum/4;
+        vector<bool> visited(matchsticks.size(),false);
+        int cnt=0;
+        if(solve(0,0,matchsticks,4,sum,matchsticks.size(),visited))
+       {
+           return true;
+       }
+            return false;
+    }
+    bool solve(int idx, int curr_sum, vector<int>& matchsticks, int k, int sum, int n,vector<bool> visited)
+   {
+        if(k == 1)
+            return true;
+        if(curr_sum == sum)
+            // return true;
+             return solve(0, 0, matchsticks, k - 1, sum, n,visited);
+        for(int i = idx; i < n; i++)
+        {
+                if(!visited[i] && !(curr_sum + matchsticks[i] > sum))
+                {
+                visited[i] = true;
+                if(solve(i + 1, curr_sum + matchsticks[i], matchsticks, k, sum, n,visited))
+                    return true;
+                visited[i] = false;
+                }
+        }
+        return false;
+    }
+};

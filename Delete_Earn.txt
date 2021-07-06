@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) 
+    {
+        unordered_map<int,int> um;
+        int maxim=nums[0];
+        for(int i=0;i<nums.size();i++)
+        {
+            maxim=max(maxim,nums[i]);
+            um[nums[i]]++;
+        }
+        int dp[maxim+1];
+        memset(dp,0,sizeof(dp));
+        dp[0]=0;
+        dp[1]=um[1]*1;
+        for(int i=2;i<=maxim;i++)
+        {
+            dp[i]=max(dp[i-1],dp[i-2]+(um[i]*i));
+        }
+        return dp[maxim];
+         // 3 - 1 
+         // 4 - 1 
+         // 2 - 1 
+        
+//     2 --- 2
+//     3 --- 3 
+//     4 --- 1 
+        
+//     0 1 2 3 4 
+//     0 0 4 9 4+4
+        
+    }
+};
