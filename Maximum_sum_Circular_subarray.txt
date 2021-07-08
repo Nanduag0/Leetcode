@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int maxSubarraySumCircular(vector<int>& nums)
+    {
+   int max_sum=0;
+   int globalmax=INT_MIN;
+   int min_sum=0;
+   int globalmin=INT_MAX;
+   int sum_total=0;
+    for(auto it : nums)
+    {
+       max_sum=max(it,max_sum+it);
+       globalmax=max(globalmax,max_sum);
+       min_sum=min(it,it+min_sum);
+       globalmin=min(globalmin,min_sum);
+       sum_total+=it;
+    }
+        if(max_sum>0)
+        {
+            return max(globalmax,sum_total-globalmin);
+        }
+        return globalmax;
+        
+        
+    }
+};

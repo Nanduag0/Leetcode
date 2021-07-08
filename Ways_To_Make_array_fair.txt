@@ -1,0 +1,85 @@
+class Solution {
+public:
+    int waysToMakeFair(vector<int>& nums) 
+    {
+        if(nums.size()==0)
+            return 0;
+        
+        vector<int> evenleft(nums.size());
+        vector<int> evenright(nums.size());
+        vector<int> oddleft(nums.size());
+        vector<int> oddright(nums.size());
+        if(nums.size()==1)
+            return 1;
+        int evensum=0,oddsum=0;
+        int cnt=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(i%2==0)
+            {
+                evensum+=nums[i];
+            }
+            else
+                oddsum+=nums[i];
+            evenleft[i]=evensum;
+            oddleft[i]=oddsum;
+        }
+        evensum=0,oddsum=0;
+        for(int i=nums.size()-1;i>=0;i--)
+        {
+            if(i%2==0)
+            {
+                evensum+=nums[i];
+            }
+            else
+                oddsum+=nums[i];
+          evenright[i]=evensum;
+          oddright[i]=oddsum;
+        }
+        int tote=0,toto=0;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(i==0)
+            {
+                toto=evenright[i+1];
+                tote=oddright[i+1];
+                if(toto==tote)
+                    cnt++;
+            }
+            else
+                if(i==nums.size()-1)
+                {
+                    toto=oddleft[i-1];
+                    tote=evenleft[i-1];
+                    if(toto==tote)
+                        cnt++;
+                }
+            else
+            {
+                toto=oddleft[i-1]+evenright[i+1];
+                tote=evenleft[i-1]+oddright[i+1];
+                if(toto==tote)
+                {
+                    cnt++;
+                }
+            }
+        }
+        return cnt;
+        
+//         2 1 6 4 
+//         0 1 2 3 
+        
+//         odd -- 0 1 1 5
+//         even-- 2 2 8 8
+            
+//         odd--  5 5 4 4
+//         even-- 8 6 6 0
+        
+        
+//         for 2 not fair 
+//         for 1 odd=0+6 even=2+4  fair 
+//         for 6 odd=1+0   ev=2+4
+//         for 4 odd=5+0   even=8+4
+        
+    }
+};

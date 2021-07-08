@@ -1,0 +1,24 @@
+class Solution {
+public:
+    double averageWaitingTime(vector<vector<int>>& customers) 
+    {
+        int endTime=0;
+        double count=0;
+        for(int i=0;i<customers.size();i++)
+        {
+          if(customers[i][0]<endTime)
+          {
+              endTime+=customers[i][1];
+              count+=(endTime-customers[i][0]);
+          }
+           else
+           {
+               endTime=customers[i][0]+customers[i][1];
+               count+=(endTime-customers[i][0]);
+           }
+        }
+        return count/(customers.size());
+        
+        
+    }
+};

@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int minimumJumps(vector<int>& forbidden, int a, int b, int x) 
+    {
+        queue<pair<int,int>> que;
+        que.push(make_pair(0,0));
+        int count=0;
+        unordered_set<int> v;
+        for(int i=0;i<forbidden.size();i++)
+        {
+            v.insert(forbidden[i]);
+        }
+        while(!que.empty())
+        {
+            int l=que.size();
+            while(l--)
+            {
+                pair<int,int> p=que.front();
+                int val=p.first;
+                que.pop();
+                //cout<<"****"<<"\n";
+                if(val==x)
+                    return count;
+                if(v.count(val)==1)
+                {
+                    continue;
+                }
+                 v.insert(val);
+                 if(p.second==0)
+                {
+                 if(val-b>=0)
+                 que.push(make_pair(val-b,1));
+                }  
+                 if((val+a)<=a+b+2000)
+                 que.push(make_pair(val+a,0));
+               }
+             count++;
+        }
+        return -1;
+    }
+};
+
