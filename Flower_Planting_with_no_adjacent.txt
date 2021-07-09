@@ -1,0 +1,55 @@
+class Solution {
+public:
+    vector<int> gardenNoAdj(int n, vector<vector<int>>& paths) 
+    {
+        vector<int> adj[n+1];
+        for(int i=0;i<paths.size();i++)
+        {
+            adj[paths[i][0]].push_back(paths[i][1]);
+            adj[paths[i][1]].push_back(paths[i][0]);
+        }
+        vector<bool> visited(n+1,false);
+        int color=1;
+        vector<int> colour(n+1,0);
+        for(int i=1;i<=n;i++)
+        {
+            color=1;
+            if(!visited[i])
+            {
+                dfs(adj,visited,color,i,colour);
+            }
+        }
+        colour.erase(colour.begin());
+        return colour;
+    }
+    void dfs(vector<int> adj[],vector<bool> &visited,int color,int node,vector<int> &colour)
+    {
+        visited[node]=true;
+        colour[node]=gotofind(colour,node,adj);
+        for(auto it : adj[node])
+        {
+            if(!visited[it])
+            {
+                dfs(adj,visited,color+1,it,colour);
+            }
+        }
+    }
+    int  gotofind(vector<int> &colour,int node,vector<int> adj[])
+    {
+        map<int,int> mp;
+        mp[1]=1;
+        mp[2]=1;
+        mp[3]=1;
+        mp[4]=1;
+        for(auto it : adj[node])
+        {
+            if(colour[it]!=0)
+            {
+                mp.erase(colour[it]);
+            }
+        }
+      auto it =mp.begin();
+      return it->first;
+        
+    }
+};

@@ -1,0 +1,36 @@
+class Solution {
+public:
+    
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) 
+    {
+        vector<int> parent(edges.size()+1);
+        for(int i=1;i<=edges.size();i++)
+        {
+          parent[i]=i;
+         }
+        vector<vector<int>> res;
+        for(int i=0;i<edges.size();i++)
+        {
+           int x =edges[i][0];
+           int y =edges[i][1];
+           uni(x,y,parent,res);
+         }
+        return res.back();
+    }
+     int findPar(int node,vector<int> &parent)
+{
+    if(node==parent[node])
+       return node;
+    return findPar(parent[node],parent);
+}
+    void uni(int x,int y,vector<int> &parent,vector<vector<int>> &res)
+{
+  int u=findPar(x,parent);
+  int v=findPar(y,parent);
+  if(u!=v)
+  parent[u]=v;
+ else
+    res.push_back({x,y});
+}
+   
+};

@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+      //there is no weights 
+        vector<int> adj[numCourses];
+         vector<int> ans;
+        for(int i=0;i<prerequisites.size();i++)
+        {
+            int x=prerequisites[i][0];
+            int y=prerequisites[i][1];
+            adj[y].push_back(x);
+        }
+        if(prerequisites.size()==0 && numCourses>0)
+        {
+            for(int i=0;i<numCourses;i++)
+            {
+                ans.push_back(i);
+            }
+            return ans;
+        }
+        //Now apply toposort using dfs
+        queue<int> que;
+        vector<int> indegree(numCourses,0);
+        vector<int> topo;
+        for(int i=0;i<prerequisites.size();i++)
+        {
+            indegree[prerequisites[i][0]]++;
+        }
+        for(int i=0;i<numCourses;i++)
+        {
+            if(indegree[i]==0)
+            {
+                que.push(i);
+            }
+        }
+        while(!que.empty())
+        {
+            int x =que.front();
+            que.pop();
+            topo.push_back(x);
+            for(auto it : adj[x])
+            {
+                    indegree[it]--;
+                    if(indegree[it]==0)
+                    que.push(it);
+            }
+        }
+        if(topo.size()==numCourses)
+        {
+            return topo;
+        }
+        return ans;
+        
+    }
+  
+};

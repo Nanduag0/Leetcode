@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int minReorder(int n, vector<vector<int>>& connections)
+    {
+        vector<int> adj[n];
+        set<pair<int,int>> s;
+        for(int i=0;i<connections.size();i++)
+        {
+            adj[connections[i][0]].push_back(connections[i][1]);
+            adj[connections[i][1]].push_back(connections[i][0]);
+            s.insert(make_pair(connections[i][0],connections[i][1]));
+                
+        }
+        queue<int> que;
+        int tot=0;
+        que.push(0);
+        vector<bool> visited(n,false);
+        while(!que.empty())
+                {
+                    int x=que.front();
+                    que.pop();
+                    if(!visited[x])
+                    {
+                          visited[x]=true;
+                        for(auto it : adj[x])
+                        {
+                            if(s.count({x,it}) && !visited[it])
+                                tot++;
+                            que.push(it);
+                        }
+                    }
+                    
+                }
+        
+        return tot;
+                
+    }
+};
