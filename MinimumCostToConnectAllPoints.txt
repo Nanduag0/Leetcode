@@ -1,0 +1,71 @@
+class Solution {
+public:
+    int minCostConnectPoints(vector<vector<int>>& points) 
+    {
+        vector<pair<int,pair<int,int>>> mp;
+        for(int i=0;i<points.size();i++)
+        {
+            for(int j=i+1;j<points.size();j++)
+            {
+                mp.push_back({abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]),{i,j}});
+            }
+        }
+        sort(mp.begin(),mp.end());
+        // for(auto it : mp)
+        // {
+        //     cout<<it.first<<" ";
+        //     pair<int,int> p=it.second;
+        //     cout<<p.first<<" "<<p.second<<" "<<"\n";
+        // }
+        vector<int> parent(points.size());
+        vector<int> rank(points.size());
+        for(int i=0;i<points.size();i++)
+        {
+            parent[i]=i;
+            rank[i]=0;
+        }
+        int cost=0;
+        vector<pair<int,int>> mst;
+        for(auto it : mp)
+        {
+            int distance=it.first;
+            pair<int,int> p=it.second;
+            int u=p.first;
+            int v=p.second;
+            if(findPar(u,parent)!=findPar(v,parent))
+            {
+                cost+=distance;
+                mst.push_back({u,v});
+                uni(u,v,parent,rank);
+            }
+        }
+        return cost;
+    }
+    int  findPar(int val,vector<int> &parent)
+    {
+        if(val==parent[val])
+        {
+            return val;
+        }
+        return parent[val]=findPar(parent[val],parent);
+    }
+    void uni(int x,int y,vector<int> &parent,vector<int> &rank)
+    {
+        int u=findPar(x,parent);
+        int v=findPar(y,parent);
+        if(rank[u]<rank[v])
+        {
+            parent[u]=v;
+        }
+        else
+        if(rank[u]>rank[v])
+        {
+            parent[v]=u;
+        }
+        else
+        {
+            parent[v]=u;
+            rank[u]++;
+        }
+    }
+};

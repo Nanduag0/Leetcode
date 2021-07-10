@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<bool> checkIfPrerequisite(int numCourses, vector<vector<int>>& prerequisites, vector<vector<int>>& queries)
+    {
+        vector<int> adj[numCourses];
+        vector<vector<int>> isReac(numCourses,vector<int>(numCourses,INT_MAX/2));
+        for(int i=0;i<prerequisites.size();i++)
+        {
+           isReac[prerequisites[i][0]][prerequisites[i][1]]=1; 
+        }
+        for(int k=0;k<numCourses;k++)
+                                   {
+                                       for(int i=0;i<numCourses;i++)
+                                       {
+                                           for(int j=0;j<numCourses;j++)
+                                           {
+                                               if(isReac[i][j]>isReac[i][k]+isReac[k][j])
+                                               {
+                                                   isReac[i][j]=isReac[i][k]+isReac[k][j];
+                                               }
+                                           }
+                                       }
+                                   }
+         vector<bool> ans;
+         for(int i=0;i<queries.size();i++)
+                                   {
+                                       if(isReac[queries[i][0]][queries[i][1]]!=INT_MAX/2)
+                                       {
+                                           ans.push_back(true);
+                                       }
+                                       else
+                                           ans.push_back(false);
+                                   }
+                                   return ans;
+                                   
+         
+          
+    }
+  
+};

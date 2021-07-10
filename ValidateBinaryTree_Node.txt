@@ -1,0 +1,89 @@
+class Solution {
+public:
+    bool validateBinaryTreeNodes(int n, vector<int>& leftChild, vector<int>& rightChild)
+    {
+        vector<int> indegree(n);
+        vector<int> adj[n];
+        for(int i=0;i<n;i++)
+        {
+            if(leftChild[i]!=-1)
+            {
+                adj[i].push_back(leftChild[i]);
+                indegree[leftChild[i]]++;
+            }
+            if(rightChild[i]!=-1)
+            {
+                adj[i].push_back(rightChild[i]);
+                indegree[rightChild[i]]++;
+            }
+        }
+        vector<bool> visited(n,false);
+        queue<int> que;
+        for(int i=0;i<indegree.size();i++)
+        {
+            if(indegree[i]==0)
+            {
+                que.push(i);
+            }
+        }
+        if(que.size()!=1)
+        {
+            return false;
+        }
+        // for(int i=0;i<n;i++)
+        // {
+        //     for(auto it : adj[i])
+        //     {
+        //         union(i,it,rank,parent);
+        //     }
+        // }
+        
+        visited[que.front()]=true;
+        while(!que.empty())
+        {
+            int x=que.front();
+            que.pop();
+            for(auto it : adj[x])
+            {
+                if(visited[it]==true)
+                {
+                    return false;
+                }
+                visited[it]=true;
+                que.push(it);
+            }
+        }
+        for(auto it : visited)
+        {
+            if(!it)
+                return false;
+            
+        }
+        return  true;
+        
+    }
+//      int findPar(int node,vector<int> &parent)
+// {
+//    if(node==parent[node])
+//      return node;
+//    return parentnode=findPar(parent[node],parent);
+// }
+// void union(int x,int y,vector<int> &rank,vector<int> &parent)
+// {
+//   u=findPar(x);
+//   v=findPar(y);
+//   if(rank[u]<rank[v])
+//    {
+//      parent[u]=v;
+//    }
+//    else if(rank[v]<rank[u])
+//    {
+//     parent[v]=u;
+//    }
+//    else
+//    {
+//     parent[v]=u;
+//     rank[u]++;
+//     }
+// }
+};
