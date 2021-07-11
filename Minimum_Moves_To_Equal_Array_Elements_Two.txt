@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int minMoves2(vector<int>& nums) 
+    {
+
+        sort(nums.begin(),nums.end());
+        int val=0,moves=0,val1=0,val2=0;
+        int n=nums.size();
+        if(nums.size()&1)
+        {
+            val=(n-1)/2;
+            for(int i=0;i<val;i++)
+            {
+                moves+=(nums[val]-nums[i]);
+            }
+            for(int i=val+1;i<n;i++)
+            {
+                moves+=(nums[i]-nums[val]);
+            }
+        }
+        else
+        {
+            val1=n/2;
+            for(int i=0;i<val1;i++)
+            {
+                moves+=(nums[val1]-nums[i]);
+            }
+            for(int i=val1+1;i<n;i++)
+            {
+                moves+=(nums[i]-nums[val1]);
+            }
+        }
+        return moves;
+    }
+};
