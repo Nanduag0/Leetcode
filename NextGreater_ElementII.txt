@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> nextGreaterElements(vector<int>& nums)
+    {
+        int maxim=-1;
+        stack<int> ss;
+        vector<int> vec(nums.size());
+        int n=nums.size();
+        int i=2*n-1;
+        int flag=0;
+        while(i>=0)
+        {
+           while(!ss.empty() && nums[ss.top()]<=nums[i%n])
+               ss.pop();
+            vec[i%n]=ss.empty()?-1:nums[ss.top()];
+            ss.push(i%n);
+            i--;
+        }
+        return vec;
+        
+    }
+};

@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int fourSumCount(vector<int>& A, vector<int>& B, vector<int>& C, vector<int>& D) 
+    {
+      int count=0;
+       map<int,int> mp;
+       for(auto it : A)
+       {
+           for(auto itr : B )
+           {
+              mp[it+itr]++;
+           }
+       }
+        for(auto it : C)
+        {
+            for(auto itr : D)
+            {
+                if(mp.find(-(it+itr))!=mp.end() && mp[-(it+itr)]>0)
+                {
+                   count+=mp[-(it+itr)];
+                }
+               
+            }
+        }
+        return count;
+    }
+  
+};

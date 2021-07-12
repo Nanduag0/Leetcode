@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<string> findWords(vector<string>& words) 
+    {
+        vector<string> vec;
+        string a="qwertyuiopQWERTYUIOP";
+        string b="asdfghjklASDFGHJKL";
+        string c="zxcvbnmZXCVBNM";
+        int count1,count2,count3;
+        for(auto it : words)
+        {
+            count1=0,count2=0,count3=0;
+          for(char ch : it)
+          {
+              if(a.find(ch)!=-1)
+              {
+                  count1++;
+              }
+              if(b.find(ch)!=-1)
+              {
+                  count2++;
+              }
+              if(c.find(ch)!=-1)
+              {
+                  count3++;
+              }
+          }
+            //cout<<count1<<" "<<count2<<" "<<count3<<" "<<"\n";
+            if(count1==it.length() || count2==it.length() || count3==it.length())
+                vec.push_back(it);
+            
+        }
+        return vec;
+        
+        
+    }
+};
