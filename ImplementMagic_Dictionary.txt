@@ -1,0 +1,48 @@
+class MagicDictionary {
+public:
+    /** Initialize your data structure here. */
+    vector<string> s;
+    MagicDictionary() {
+        
+    }
+    
+    void buildDict(vector<string> dictionary) 
+    {
+        s=dictionary;
+    }
+    
+    bool search(string searchWord) 
+    {
+        for(auto it : s)
+        {
+            if(it.length()==searchWord.length())
+            {
+                int i=0,count=0;
+                 for(char ch : it)
+                {
+                    if(searchWord[i]==ch)
+                        i++;
+                     else
+                     {
+                         count++;
+                         i++;
+                     }
+                     if(count>1)
+                         break;
+                }
+                if(count==1)
+                    return true;
+            }
+               
+        }
+        return false;
+        
+    }
+};
+
+/**
+ * Your MagicDictionary object will be instantiated and called as such:
+ * MagicDictionary* obj = new MagicDictionary();
+ * obj->buildDict(dictionary);
+ * bool param_2 = obj->search(searchWord);
+ */

@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findLUSlength(string a, string b)
+    {
+        int count=0;
+        if(a.length()>=b.length())
+        {
+            if(b.find(a)==-1)
+                count+=a.length();
+        }
+        else
+        {
+            if(a.find(b)==-1)
+                count+=b.length();
+        }
+        if(count==0)
+            return -1;
+        
+        return count;
+    }
+};

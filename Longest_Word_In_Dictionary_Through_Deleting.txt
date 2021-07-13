@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string findLongestWord(string s, vector<string>& d)
+    {
+      vector<pair<int,string>> ans;
+      for(auto it : d)
+      {
+          string a=it;
+          int i=0;
+          if(a.length()>s.length())
+              continue;
+          for(char ch : s)
+          {
+              if(i<a.length() && a[i]==ch)
+                  i++;
+          }
+          if(i==a.length())
+              ans.push_back({a.length(),a});
+      }
+        sort(ans.begin(),ans.end());
+        if(ans.size()==0)
+            return "";
+       int maxim=ans[ans.size()-1].first;
+        vector<string> final;
+        for(auto it : ans)
+        {
+            if(it.first==maxim)
+                final.push_back(it.second);
+        }
+        sort(final.begin(),final.end());
+        return final[0];
+    }
+};

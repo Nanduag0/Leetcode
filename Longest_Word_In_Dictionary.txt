@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string longestWord(vector<string>& words) 
+    {
+        vector<pair<int,string>> vec;
+        for(auto it : words)
+        {
+            vec.push_back({it.length(),it});
+        }
+        vector<pair<int,string>> ans;
+        sort(vec.begin(),vec.end());
+        int flag;
+        for(auto it : vec)
+        {
+            flag=0;
+            string s=it.second;
+            for(int j=1;j<=s.length()-1;j++)
+            {
+                if(find(words.begin(),words.end(),s.substr(0,j))==words.end())
+                {
+                    flag=1;
+                    break;
+                }
+            }
+            if(flag!=1)
+                ans.push_back({it.second.length(),s});
+        }
+     if(ans.size()==0)
+          return "";
+      sort(ans.begin(),ans.end());
+      
+      int max=ans[ans.size()-1].first;
+      vector<string> r;
+      for(auto it : ans)
+      {
+          if(it.first==max)
+              r.push_back(it.second);
+      }
+      if(r.size()==0)
+          return "";
+      sort(r.begin(),r.end());
+      return r[0];
+    }
+};
