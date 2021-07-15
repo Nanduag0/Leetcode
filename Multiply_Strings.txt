@@ -1,0 +1,92 @@
+class Solution 
+{
+    
+public:
+    string multiply(string num1, string num2)
+    {
+     if(num1=="0" || num2=="0")
+     {
+         return "0";
+     }
+     int j=1;
+     int n=num1.length();
+     int m =num2.length();
+     int mul[n][n+m];
+     memset(mul,0,sizeof(mul));
+     int row=0,col=n+m-1;
+     int last=0;
+     int val=0;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n+m;j++)
+        {
+            mul[i][j]=0;
+        }
+    }
+        int c=0;
+     for(int i=num1.length()-1;i>=0;i--)
+     {
+         last=col;
+         for(int j=num2.length()-1;j>=0;j--)
+         {
+             val=(stoi(num1.substr(i,1))*stoi(num2.substr(j,1)));
+             int y=val+c;
+             mul[row][last]=(y)%10;
+            // cout<<mul[row][last]<<" ";
+             c=y/10;
+             last--;
+         }
+         if(c!=0)
+         {
+             mul[row][last]=c;
+             c=0;
+         }
+         c=0;
+         //cout<<mul[row][last];
+         //cout<<"\n";
+         col--;
+         row++;
+     }
+     // for(int i=0;i<n;i++)
+     // {
+     //     for(int j=0;j<n+m;j++)
+     //     {
+     //         cout<<mul[i][j]<<" ";
+     //     }
+     //     cout<<"\n";
+     // }
+    
+     int sum=0;
+     string ans="";
+     c=0;
+     val=0;
+     for(int i=n+m-1;i>=0;i--)
+     {
+         sum=0;
+         for(j=n-1;j>=0;j--)
+         {
+             sum+=mul[j][i];
+         }
+         val=sum+c;
+         ans+=to_string(val%10);
+         c=val/10;
+         //cout<<val%10<<" "<<c<<"\n";
+         
+     }
+     reverse(ans.begin(),ans.end());
+     int f=ans.find('0');
+     if(f==0)
+     {
+         int count=0;
+          for(char ch : ans)
+     {
+         if(ch=='0')
+         count++;
+             else
+                 break;
+     }
+         ans.erase(0,count);
+     }
+     return ans;
+    }
+};

@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string strWithout3a3b(int a, int b) 
+    {
+        string s="";
+        
+        // aababbabb
+        // 2 1 1 2 
+            while(a>0 && b>0)
+            {
+                if(a>b)
+                {
+                    s+="aab";
+                    a-=2;
+                    b-=1;
+                    continue;
+                }
+                else
+                {
+                 if(a==b && a==1)
+                {
+                    s+="ab";
+                    a-=1;
+                    b-=1;
+                    continue;
+                }
+                }
+                s+="abb";
+                b-=2;
+                a-=1;
+                
+            }
+        //cout<<a<<b;
+        while(a>0)
+        {
+            s+="a";
+            a--;
+        }
+        while(b>0)
+        {
+            s="b"+s;
+            b--;
+        }
+        return s;
+        
+    }
+};

@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) 
+    {
+     int i=0,j=1;
+     for(int i=0;i<nums.size()-1;i++)
+     {
+         for(int j=i+1;j<nums.size();j++)
+         {
+             string a=to_string(nums[i])+to_string(nums[j]);
+             string b=to_string(nums[j])+to_string(nums[i]);
+             if(b.compare(a)>0)
+                 swap(nums[i],nums[j]);
+         }
+     }
+        
+        string ans="";
+        for(int i=0;i<nums.size();i++)
+        {
+            ans+=to_string(nums[i]);
+        }
+        int findz=ans.find('0');
+        int cnt=0;
+        if(findz==0)
+        {
+           for(int i=0;i<ans.size();i++)
+        {
+            if(ans[i]=='0')
+                cnt++;
+            else
+                break;
+        }
+        if(cnt==ans.length())
+            cnt-=1;
+        ans.erase(0,cnt);  
+        }
+        return ans;
+        
+    }
+};
