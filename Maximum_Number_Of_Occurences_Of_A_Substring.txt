@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int maxFreq(string s, int maxLetters, int minSize, int maxSize) 
+    {
+        
+        
+        
+       unordered_map<char,int> mp;
+       map<string,int> um;
+       int i=0,j=1;
+       mp[s[i]]++;
+       int minim=0;
+       while(j<s.length())
+       {
+            //cout<<s[j]<<" ";
+              mp[s[j]]++;
+              if(j-i+1>minSize)
+              {
+                  mp[s[i]]--;
+                  if(mp[s[i]]==0)
+                  {
+                      auto it=mp.find(s[i]);
+                      mp.erase(it);
+                  }
+                  i++;
+              }
+             if(j-i+1==minSize)
+           {
+               if(mp.size()<=maxLetters)
+               {
+                    cout<<s.substr(i,j-i+1)<<" ";
+                    um[s.substr(i,j-i+1)]++;
+               }
+              
+           }
+             j++;
+       }
+        for(auto it : um)
+        {
+          //cout<<it.first<<" "<<it.second<<"\n";
+          if(it.second>=minim)
+          {
+              minim=it.second;
+          }
+        }
+
+        return minim;
+        
+        
+    }
+};
