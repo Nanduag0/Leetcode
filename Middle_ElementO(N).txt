@@ -1,0 +1,35 @@
+Node* dummy=new Node(-1);
+Node* head=dummy;
+Node* mid=dummy;
+
+void push()
+{
+  Node* curr=new Node(data);
+  curr->pre=NULL;
+  curr->next=head;
+  cnt++;
+  head->pre=curr;
+  head=curr;
+  if(cnt==1)//odd 
+  {
+   mid=curr;
+  }
+   else
+  if(cnt%2==0)
+  mid=mid->pre;
+}
+ int pop()
+{
+  if(cnt==0)
+   cout<<stack is empty;
+  Node* temp=head;
+  int x=head->data;
+  if(head!=NULL)
+  head->pre=NULL;
+  cnt--;
+  if(cnt&1)//odd 
+  mid=mid->next;
+  free(temp)
+  return x;
+}
+
