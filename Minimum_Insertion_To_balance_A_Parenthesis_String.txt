@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int minInsertions(string s) 
+    {
+        stack<char> ss;
+        int i=0,res=0;
+        while(i<s.length())
+        {
+            if(s[i]=='(')
+            {
+                ss.push(s[i]);
+                i++;
+            }
+            else
+            if(s[i]==')' && s[i+1]==')' && !ss.empty())
+            {
+                
+                ss.pop();
+                i+=2;
+            }
+            else
+            if(s[i]==')' && s[i+1]==')' && ss.empty())
+            {
+                res+=1;
+                i+=2;
+            }
+            else
+            if(s[i]==')' && s[i+1]!=')')
+            {
+                if(ss.empty())
+                {
+                    res+=2;
+                    i+=1;
+                }
+                else
+                {
+                    res+=1;
+                    i++;
+                    ss.pop();
+                }
+            }
+        }
+        while(!ss.empty())
+        {
+            res+=2;
+            ss.pop();
+        }
+        return res;
+        
+    }
+};

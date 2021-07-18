@@ -1,0 +1,95 @@
+class Solution {
+public:
+    int maximumGain(string s, int x, int y) 
+    {
+        stack<char> ss;
+        int count=0;
+     for(int i=0;i<s.length();i++)
+     {
+         if(!ss.empty() && ss.top()=='b')
+         {
+             if(s[i]=='a')
+             {
+                count+=y;
+                ss.pop();  
+             }
+             else
+                 ss.push(s[i]);
+         }
+         else
+         ss.push(s[i]);
+     }
+        string r="";
+        while(!ss.empty())
+        {
+            r+=ss.top();
+            ss.pop();
+        }
+        reverse(r.begin(),r.end());
+        stack<char> a;
+        for(int i=0;i<r.length();i++)
+        {
+           if(!a.empty() && a.top()=='a')
+         {
+             if(r[i]=='b')
+             {
+                count+=x;
+                a.pop();  
+             }
+             else
+                 a.push(r[i]);
+         }
+         else
+         a.push(r[i]);
+        }
+        int count_o=count;
+        count=0;
+        while(!ss.empty())
+            ss.pop();
+        
+        for(int i=0;i<s.length();i++)
+        {
+            if(!ss.empty() && ss.top()=='a')
+            {
+                if(s[i]=='b')
+                {
+                    count+=x;
+                    ss.pop();
+                }
+                else
+                    ss.push(s[i]);
+            }
+            else
+            ss.push(s[i]);
+        }
+         string p="";
+        while(!ss.empty())
+        {
+            p+=ss.top();
+            ss.pop();
+        }
+        reverse(p.begin(),p.end());
+        stack<char> b;
+        for(int i=0;i<p.length();i++)
+        {
+            if(!b.empty() && b.top()=='b')
+            {
+                if(p[i]=='a')
+                {
+                    count+=y;
+                    b.pop();
+                }
+                else
+                    b.push(p[i]);
+            }
+            else
+                b.push(p[i]);
+        }
+        int count_t=count;
+        //cout<<" "<<count_t<<" "<<count_o<<" ";
+        return max(count_o,count_t);
+        
+        
+    }
+};
+

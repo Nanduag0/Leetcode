@@ -1,0 +1,60 @@
+class Solution {
+public:
+    string decodeString(string s)
+    {
+    stack<char> ss;
+    int val=0;
+    for(int i=0;i<s.length();i++)
+    {
+        if(s[i]==']')
+        {
+            string a="";
+            while(ss.top()!='[')
+            {
+                a+=ss.top();
+                ss.pop();
+            }
+            reverse(a.begin(),a.end());
+            ss.pop();
+            string num="";
+            while(!ss.empty() && ss.top()>='0' && ss.top()<='9')
+            {
+                num+=(ss.top());
+                ss.pop();
+            }
+            reverse(num.begin(),num.end());
+            // int count=1;
+            // val=0;
+            // for(int q=0;q<num.length();q++)
+            // {
+            //     val=val*count+(num[q]-'0');
+            //     count*=10;
+            // }
+            int val=stoi(num);
+            cout<<val<<" ";
+            string ans="";
+            int m=0;
+            while(m<val)
+            {
+                ans.append(a);
+                m++;
+            }
+            for(int j=0;j<ans.length();j++)
+            {
+                ss.push(ans[j]);
+            }
+        }
+        else
+            ss.push(s[i]);
+    }
+        string n="";
+        while(!ss.empty())
+        {
+            n+=ss.top();
+            ss.pop();
+        }
+        reverse(n.begin(),n.end());
+        return n;
+        
+    }
+};

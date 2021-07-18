@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int longestWPI(vector<int>& hours) 
+    {
+        vector<int> vec(hours.size());
+        for(int i=0;i<hours.size();i++)
+        {
+            if(hours[i]>8)
+                vec[i]=1;
+            else
+                vec[i]=-1;
+        }
+        int minim=0;
+        int j=0,sum=0;
+        unordered_map<int,int> mp;
+        while(j<vec.size())
+        {
+            sum+=vec[j];
+            if(sum>0)
+                minim=max(minim,j+1);
+            
+              if(sum<=0)
+            {
+                  // This is the condo=ition for seeing if a subarray exist of size 1 
+                    if(mp.find(sum-1)!=mp.end())
+                    //cout<<"****";
+                    minim=max(minim,j-mp[sum-1]);
+            }
+              if(mp.find(sum)==mp.end())
+                    mp[sum]=j;   
+            j++;
+        }
+        return minim;
+        
+    }
+};
