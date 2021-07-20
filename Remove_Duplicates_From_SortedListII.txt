@@ -1,0 +1,80 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head)
+    {
+        if(head==NULL)
+            return head;
+        if(head->next==NULL)
+            return head;
+        ListNode* pre=NULL;
+        ListNode* temp=head;
+        ListNode* ptr1;
+        int count=0;
+        int flag=0;
+        while(temp->next!=NULL && temp!=NULL)
+        {
+            int x=temp->val;
+            ptr1=temp->next;
+            count=0;
+            while(ptr1!=NULL)
+            {
+                if(ptr1->val==x)
+                {
+                    count++;
+                    ptr1=ptr1->next;
+                }
+                else 
+                {
+                   if(count==0)
+                   {
+                       if(pre==NULL)
+                       {
+                           head=temp;
+                           pre=head;
+                           temp=temp->next;
+                       }
+                       else if(pre!=NULL && count==0)
+                       {
+                           pre->next=temp;
+                           pre=temp;
+                           temp=temp->next;
+                       }
+                   }
+                    break;
+                }
+             }
+                     if(count>0 && ptr1!=NULL)
+                       {
+                           temp=ptr1;
+                       }
+                       else
+                      if(count>0 && ptr1==NULL)
+                      {
+                          flag=1;
+                          break;
+                      }
+        }
+        if(flag==1 && pre==NULL)
+        {
+            return NULL;
+        }
+        if(pre==NULL && flag!=1)
+        {
+            pre=ptr1;
+            head=pre;
+        }
+        else
+        pre->next=ptr1;
+        return head;
+    }
+};

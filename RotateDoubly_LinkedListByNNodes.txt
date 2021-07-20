@@ -1,0 +1,19 @@
+{
+  if(N==0)
+   return head;
+  Node* current=head;
+  int count=1;
+  while(count<N && current!=NULL)
+ {
+  current=current->next;
+  count++;
+ }
+  Node* nthnode=current;
+  while(current->next!=NULL)
+  current=current->next;
+  current->next=head;
+  head->prev=current;
+  head=Nthnode->next;
+  head->prev=NULL;
+  Nthnode->next=NULL;
+}

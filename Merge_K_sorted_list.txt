@@ -1,0 +1,44 @@
+   //Function to merge K sorted linked list.
+    Node * mergeKLists(Node *arr[], int K)
+    {
+           // Your code here
+           int i=0;
+           int last=K-1;
+           int j;
+           while(last!=0)
+           {
+               int i=0;
+               int j=last;
+               while(i<j)
+               {
+                   arr[i]=mergesort(arr[i],arr[j]);
+                   i++;
+                   j--;
+                   if(i>=j)
+                   last=j;
+               }
+               
+           }
+           return arr[0];
+    }
+    Node *mergesort(Node* a,Node *b)
+    {
+        Node *ans;
+        if(!a)
+        return b;
+        if(!b)
+        return a;
+        if(a->data<=b->data)
+        {
+            ans=a;
+            ans->next=mergesort(a->next,b);
+        }
+        else
+        {
+            ans=b;
+            ans->next=mergesort(a,b->next);
+        }
+        return ans;
+        
+    }
+};
