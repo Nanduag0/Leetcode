@@ -1,0 +1,65 @@
+class Solution {
+public:
+    vector <int> printBoundary(Node *root)
+    {
+        //Your code here
+          vector<int> ans;
+          
+        if(root==NULL)
+        return ans;
+        
+        ans.push_back(root->data);
+        
+        lefttree(root->left,ans);
+        leafnodes(root,ans);
+        righttree(root->right,ans);
+        //reverse(ans.begin(),ans.end());
+        return ans;
+        
+    }
+    void lefttree(Node* root,vector<int> &ans)
+    {
+        if(!root)
+        {
+            return;
+        }
+        if(root->left!=NULL)
+        {
+            ans.push_back(root->data);
+            lefttree(root->left,ans);
+        }
+        else if(root->right!=NULL)
+        {
+            ans.push_back(root->data);
+            lefttree(root->right,ans);
+        }
+    }
+    void leafnodes(Node* root,vector<int> &ans)
+    {
+        if(!root)
+        return ;
+        
+         leafnodes(root->left,ans);
+        if(root->left==NULL && root->right==NULL)
+        ans.push_back(root->data);
+         leafnodes(root->right,ans);
+       
+        
+    }
+    void righttree(Node* root,vector<int> &ans)
+    {
+        if(!root)
+        return ;
+        if(root->right!=NULL)
+        {
+            righttree(root->right,ans);
+             ans.push_back(root->data);
+        }
+        else
+        if(root->left!=NULL)
+        {
+            righttree(root->left,ans);
+            ans.push_back(root->data);
+        }
+    }
+};
