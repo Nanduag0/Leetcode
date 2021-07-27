@@ -1,0 +1,66 @@
+class Solution {
+public:
+    int compareVersion(string version1, string version2)
+    {
+        int i=0;
+        int m=0,n=0;
+        if(version1=="" && version2=="")
+            return 0;
+        if(version1=="")
+            return -1;
+        else
+        if(version2=="")
+            return 1;
+        
+        while(m<version1.length() || n<version2.length())
+        {
+           int num=0,flag=0;
+           while(m<version1.length())
+           {
+               if(version1[m]=='.')
+                   break;
+               if(version1[m]=='0' && flag!=1)
+               {
+                   m++;
+                   continue;
+               }
+               else
+               {
+                   num=(num*10)+(version1[m]-'0');
+                   flag=1;
+                   m++;
+               }  
+           }
+            int num1=0;
+            flag=0;
+              while(n<version2.length())
+           {
+                  if(version2[n]=='.')
+                      break;
+               if(version2[n]=='0' && flag!=1)
+               {
+                   n++;
+                   continue;
+               }
+               else
+               {
+                   num1=(num1*10)+(version2[n]-'0');
+                   flag=1;
+                   n++;
+               }  
+           }
+            //cout<<num<<" "<<num1<<"\n";
+            if(num>num1)
+                return 1;
+            else
+            if(num1>num)
+                return -1;
+            else
+            {
+                m++;
+                n++;
+            }
+        }
+        return 0;
+    }
+};

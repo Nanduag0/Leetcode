@@ -1,0 +1,56 @@
+void inordered(int &c,Node* root)
+{
+  if(root==NULL)
+   return;
+  inordered(c,root->left);
+  c++;
+  inordered(c,root->right);
+  return;
+}
+void main()
+{
+ inordered(c,root);
+ int n=c;
+ int k=n/2+1;
+ int count=0,f=0;
+ median(root,pre,curr,f,count,k);
+ if(n&1)
+ {
+  return (curr->data*1.0/2);
+ }
+ else
+ return ((curr->data+prev->data)*1.0/2));
+ 
+ }
+ 
+
+void median(Node* root,Node * pre,Node *curr,int f,int count,int k)
+{
+  if(root==NULL)
+  return;
+  median(root->left,pre,curr,f,count,k);
+  if(prev==NULL)
+ {
+   prev=root;
+   count ++;
+ }
+ else
+ if(count==k)
+ {
+   count++;
+   curr=root;
+   f=1;
+   return;
+}
+else
+if(f==0)
+{
+ count++;
+ prev=root;
+}
+median(root->right,pre,curr,f,count,k);
+}
+
+
+  
+ 
