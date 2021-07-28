@@ -1,0 +1,26 @@
+class Solution {
+public:
+    char findKthBit(int n, int k) 
+    {
+     int  res=bsg(n,k);
+     return res+'0';
+    }
+    int  bsg(int n,int k)
+    {
+         if(n==1 && k==1)
+          return 0;
+        int size=pow(2,n)-1;
+        int mid=size/2;
+        if(mid+1==k)
+            return 1;
+        if(k<=mid)
+        {
+            return bsg(n-1,k);
+        }
+        else
+            return !bsg(n-1,size-k+1);
+        
+    }
+    
+ 
+};

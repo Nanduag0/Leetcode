@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int findTheWinner(int n, int k)
+    {
+      int index=0;
+      vector<int> vec(n);
+      for(int i=0;i<n;i++)
+          vec[i]=i+1;
+      int ans=0;
+      solve(index,vec,k,n,ans);
+      return ans;
+    }
+   void solve(int index,vector<int> &vec,int k,int n,int &ans)
+    {
+          if(vec.size()==1)
+        {
+            ans=vec[0];
+              return;
+        }
+        index=(index+k-1)%vec.size();
+        vec.erase(vec.begin()+index);
+        solve(index,vec,k,n-1,ans);
+    }
+};
