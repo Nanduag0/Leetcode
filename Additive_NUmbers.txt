@@ -1,0 +1,93 @@
+class Solution {
+public:
+    bool isAdditiveNumber(string num) 
+    {
+        if(num.length()<=2)
+            return false;
+        
+        vector<string> vec;
+        vector<string> ans;
+        long long si=0,indx=0;
+        backtrack(num,vec,indx,ans,si);
+        if(ans.size()==0)
+            return false;
+        //cout<<ans[0]<<" "<<ans[1];
+        num.erase(0,si);
+        //cout<<num;
+        string s="";
+          while(num!="")
+        {
+            
+            int m=ans[ans.size()-1].length()-1;
+            int n=ans[ans.size()-2].length()-1;
+            int v =0;
+            int c=0,a,b;
+             s="";
+            cout<<ans[ans.size()-1]<<" "<<ans[ans.size()-2]<<" "<<"\n";
+           while(m>=0 || n>=0 || c!=0)
+          {
+              a=m>=0?(ans[ans.size()-1][m]-'0'):0;
+              b=n>=0?(ans[ans.size()-2][n]-'0'):0;
+              v=(c+a+b)%10;
+              c=(c+a+b)/10;
+              s+=to_string(v);
+              m--;
+              n--;
+           }
+            reverse(s.begin(),s.end());
+            cout<<"\n"<<s<<"\n";
+            int val=num.find(s);
+            if(val!=-1)
+            {
+                num.erase(val,s.length());
+            }
+            else
+                return false;
+            ans.push_back(s);
+        }
+        return true;
+        
+    }
+    void backtrack(string num,vector<string> vec,long long indx,vector<string> &ans,long long  &si)
+    {
+       if(vec.size()==3)
+        {
+             string s="";
+            int m=vec[0].length()-1;
+            int n=vec[1].length()-1;
+            int v =0;
+            int c=0,a,b;
+           while(m>=0 || n>=0 || c!=0)
+          {
+              a=m>=0?(vec[0][m]-'0'):0;
+              b=n>=0?(vec[1][n]-'0'):0;
+              v=(c+a+b)%10;
+              //cout<<v<<"\n";
+              c=(c+a+b)/10;
+              s+=to_string(v);
+              m--;
+              n--;
+        }
+          reverse(s.begin(),s.end());
+            if(s==vec[2])
+            {
+                ans.push_back(vec[1]);
+                ans.push_back(vec[2]);
+                si=vec[0].length()+vec[1].length()+vec[2].length();
+            }
+            return;
+        }
+      
+        for(int i=1;i<=num.length();i++)
+        {
+            string prefix=num.substr(0,i);
+            //cout<<prefix<<"\n";
+            if((prefix.length()>=2 && prefix[0]!='0') || (prefix.length()==1))
+            {
+                vec.push_back(prefix);
+                backtrack(num.substr(i),vec,indx+1,ans,si);
+                vec.erase(vec.end()-1);
+            }
+        }
+    }
+};

@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int uniquePathsIII(vector<vector<int>>& grid) 
+    {
+        int m=grid.size();
+        int n =grid[0].size();
+        vector<vector<bool>> visited(m,vector<bool>(n,false));
+        int count=0,ans=0;
+        int neg=0;
+         for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==-1)
+                {
+                  neg++;
+                }
+            }
+        }
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(grid[i][j]==1)
+                {
+                    dfs(i,j,m,n,grid,visited,count,ans,neg);
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+    void dfs(int i,int j,int m,int n,vector<vector<int>> grid,vector<vector<bool>> &visited,int count,int &ans,int neg)
+    {
+        if(i<0 || i>=m || j<0 || j>=n || grid[i][j]==-1 || visited[i][j]==true)
+        {
+            return;
+        }
+        if(grid[i][j]==2)
+        {
+            if(count==((m*n)-(neg+1)))
+                ans++;
+            return;
+            
+        }
+        visited[i][j]=true;
+        dfs(i+1,j,m,n,grid,visited,count+1,ans,neg);
+        dfs(i,j+1,m,n,grid,visited,count+1,ans,neg);
+        dfs(i-1,j,m,n,grid,visited,count+1,ans,neg);
+        dfs(i,j-1,m,n,grid,visited,count+1,ans,neg);
+        visited[i][j]=false;
+        
+    }
+    
+    // 1 0 0 0
+    // 0 0 0 0 
+    // 0 0 2 -1 
+};

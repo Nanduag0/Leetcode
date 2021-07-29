@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<int> numsSameConsecDiff(int n, int k) 
+    {
+        vector<int> ans;
+        vector<int> vec;
+        if(n==0)
+            return ans;
+        for(int i=0;i<=9;i++)
+            vec.push_back(i);
+        vector<string> str;
+        
+        for(int i=1;i<vec.size();i++)
+        {
+            vector<int> v;
+            v.push_back(vec[i]);
+            backtrack(str,v,ans,vec,0,k,n);
+        }
+        return ans;
+    }
+    void backtrack(vector<string> str,vector<int> v,vector<int> &ans,vector<int> vec,int indx,int k,int n)
+    {
+      if(v.size()==n)
+      {
+          int calc=0;
+          for(int m=0;m<v.size();m++)
+          {
+              calc=(calc*10)+(v[m]);
+          }
+          ans.push_back(calc);
+          return;
+      }
+        for(int i=indx;i<vec.size();i++)
+        {
+            if(v.size()>0 && abs(vec[i]-v.back())==k)
+            {
+                v.push_back(vec[i]);
+                backtrack(str,v,ans,vec,indx,k,n);
+                v.erase(v.end()-1);
+            }
+        }
+    }
+};
