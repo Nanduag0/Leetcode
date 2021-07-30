@@ -1,0 +1,58 @@
+class Solution {
+public:
+    vector<string> restoreIpAddresses(string s)
+    {
+        vector<string> ans;
+         if(s.length()>12)
+             return ans;
+        vector<string> val;
+        int num=s.length()/4;
+        backtrack(s,ans,val,0,num,s.length()-1);
+        return ans;
+    }
+    bool valid(string a)
+    {
+        if(a.length()>=4)
+            return false;
+        long long val=0;
+        if(a[0]=='0' && a.length()>=2)
+            return false;
+        
+        for(int i=0;i<a.length();i++)
+        {
+            val=(val*10)+(a[i]-'0');
+        }
+        if(val>=0 && val<=255)
+        {
+            return true;
+        }
+        return false;
+    }
+    void backtrack(string s,vector<string> &ans,vector<string>  val,int indx,int num,int l)
+    {
+
+          if(val.size()==4 && s=="")
+        {
+            string m="";
+            for(int k=0;k<val.size();k++)
+            {
+                m+=(val[k]+".");
+            }
+            m.erase(m.length()-1,1);
+            ans.push_back(m);
+            return;
+        }
+        
+        for(int i=1;i<=s.length();i++)
+        {
+            string prefix=s.substr(0,i);
+            if(valid(prefix))
+            {
+                 //cout<<prefix<<"***";
+                 val.push_back(prefix);
+                 backtrack(s.substr(i),ans,val,indx,num+1,l);
+                 val.erase(val.end()-1);
+            }
+        }
+    }
+};
