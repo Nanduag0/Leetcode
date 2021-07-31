@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int minimumSwap(string s1, string s2)
+    {
+        map<string,int> mp;
+        int i=0;
+        while(i<s1.length())
+        {
+         if(s1[i]=='x' && s2[i]=='y')
+         {
+             mp["xy"]++;
+         }
+          else
+         if(s1[i]=='y' && s2[i]=='x')
+         {
+             mp["yx"]++;
+         }
+            i++;
+        }
+        if(mp.size()==0)
+            return 0;
+       if((mp["xy"]%2+mp["yx"]%2)%2!=0)
+           return -1;
+        
+       int res= mp["xy"]/2+mp["yx"]/2+((mp["xy"]%2+mp["yx"]%2)/2)*2;
+       if(res==0)
+           return -1;
+        return res;
+          
+    }
+};
+
+
+//  |*|***|**|
+// "xxyyxyxyxx", s2 = "xyyxyxxxyx"
+
+// x-y
+// x-y
+
+// y-x 
+// y-x 
+
+// x-y 
+// y-x
+
+
+
+// xyxyyx  -- yxyxxy
+
+
+// xxxxxx -- yyyyyy
+
+// xyxxxx-- xyyyyy
+
+// xyyx -- yxxy
+// yyyy --xxxx
+// y

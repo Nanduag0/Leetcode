@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int longestStrChain(vector<string>& words)
+    {
+           int n = words.size();
+        vector<int> dp(n,1);
+        sort(words.begin(),words.end(),compare);
+        for(int i = 1;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(words[i].length()-words[j].length()==1 && lcs(words[i],words[j])==words[j].length() && dp[i]<dp[j]+1)
+                    dp[i] = dp[j] + 1;
+            }
+        }
+        return *max_element(dp.begin(),dp.end());
+    }
+     static bool compare(const string &s1, const string &s2) {
+        return s1.length() < s2.length();
+    }
+    int lcs(string a,string b)
+    {
+        int dp[a.length()+1][b.length()+1];
+        memset(dp,0,sizeof(dp));
+        for(int i=0;i<=a.length();i++)
+        {
+            for(int j=0;j<=b.length();j++)
+            {
+                if(i==0 || j==0)
+                    dp[i][j]=0;
+            }
+        }
+        for(int i=1;i<=a.length();i++)
+        {
+            for(int j=1;j<=b.length();j++)
+            {
+                if(a[i-1]==b[j-1])
+                {
+                    dp[i][j]=1+dp[i-1][j-1];
+                }
+                else
+                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+            }
+        }
+        return dp[a.length()][b.length()];
+        
+    }
+    
+};

@@ -48,3 +48,9 @@ public:
         
     }
 };
+
+https://leetcode.com/problems/check-if-word-is-valid-after-substitutions/
+https://leetcode.com/problems/longest-string-chain/
+https://leetcode.com/problems/minimum-swaps-to-make-strings-equal/
+https://leetcode.com/problems/replace-the-substring-for-balanced-string/
+https://leetcode.com/problems/number-of-substrings-containing-all-three-characters/

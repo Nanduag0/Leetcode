@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        int j=0,i=0;
+        while(s!="" && j<s.length())
+        {
+                if(j-i+1>3)
+                {
+                    i++;
+                }
+             //cout<<s<<" "<<i<<" "<<j<<" "<<"\n";
+            if(j-i+1==3)
+            {
+                if(s.substr(i,3)=="abc")
+                {
+                   //cout<<"****";
+                   s.erase(i,3);
+                   //cout<<s<<" ";
+                   if(s=="")
+                       return true;
+                   if(i==0)
+                       j=0;
+                    else
+                    {
+                       j=0;
+                       i=j;
+                       //cout<<j<<" ";
+                    }
+                  
+                }
+            }
+            j++;
+        }
+        if(s!="")
+            return false;
+        return true;
+        
+    }
+};

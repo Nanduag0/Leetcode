@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int balancedString(string s) {
+    int val=s.length()/4;
+    unordered_map<char,int> mp;
+    int j=0,i=0;
+    int n=s.length();
+    for(char ch :s)
+    {
+        mp[ch]++;
+    }
+        int minim=n;
+        while(j<s.length())
+        {
+            mp[s[j]]--;
+            while(i<n && mp['R']<=val && mp['Q']<=val && mp['E']<=val && mp['W']<=val)
+            {
+                minim=min(minim,j-i+1);
+                mp[s[i]]++;
+                i++;
+            }
+            j++;
+        }
+        
+        return minim;
+    }
+ 
+};
