@@ -1,0 +1,70 @@
+class Solution {
+public:
+    int minFlips(string s) 
+    {
+        int counta=0,countb=0;
+        int n=s.length();
+        s=s+s;
+        int i=0,j=0;
+        int minim=INT_MAX;
+        //cout<<s<<" ";
+        while(i<2*n)
+        {
+            if(i-j+1>n)
+            {
+                if(j%2==0)
+                {
+                    if(s[j]!='1')
+                        counta--;
+                }
+                else
+                {
+                    if(s[j]!='0')
+                        counta--;
+                }
+               if(j%2==0)
+              {
+                  if(s[j]!='0')
+                      countb--;
+               }
+               else
+              {
+                     if(s[j]!='1')
+                     countb--;
+              }
+                 j++;
+           }
+             if(i%2==0)
+            {
+                if(s[i]!='1')
+                {
+                  counta++;
+                }
+            }
+            else
+            {
+                if(s[i]!='0')
+                    counta++;
+            }
+            if(i%2==0)
+            {
+                if(s[i]!='0')
+                    countb++;
+            }
+            else
+            {
+                if(s[i]!='1')
+                    countb++;
+            } 
+                if(i-j+1==n)
+            {
+                minim=min(minim,min(counta,countb));
+                //cout<<minim<<"\n";
+            }
+            i++; 
+        }
+        if(i-j==n)
+             minim=min(minim,min(counta,countb));
+      return minim;
+    }
+};

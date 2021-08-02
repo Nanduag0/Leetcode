@@ -1,0 +1,65 @@
+class Solution {
+public:
+    int longestBeautifulSubstring(string word) {
+    int j=0;
+    map<char,int> pm;
+    pm['a']=0;
+    pm['e']=1;
+    pm['i']=2;
+    pm['o']=3;
+    pm['u']=4;
+    if(word.length()<5)
+        return 0;
+    unordered_map<char,int> mp;
+    int maxim=0,count=0,i=0;
+    char ch=' ';
+    while(j<word.length())
+    {
+        
+        if(mp.find(word[j])==mp.end() && count==pm[word[j]] &&  pm.find(word[j])!=pm.end())
+        {
+            count++;
+        }
+        else if(word[j]==ch)
+        {
+            //cout<<"*"<<count<<"*";
+        }
+        else
+        {
+         if(j>=1)
+         {
+           if(word[j-1]=='u' && word[i]=='a')
+         {
+           
+             maxim=max(maxim,j-i); 
+         }   
+         }
+         // if(word.substr(i,j-i).length()>150)
+         //cout<<word.substr(i,j-i)<<" ";   
+         //cout<<i<<" "<<j<<"\n";
+         if(word[j]!='a')
+         {
+          i=j+1;  
+          mp.clear();
+          count=0;
+          j++;
+          ch=' ';
+          continue;
+         }
+         else
+         {
+            i=j;  
+            mp.clear();
+            count=1;
+         }
+        }
+        ch=word[j];
+        mp[word[j]]=0;
+        j++;
+     }
+        if(word[j-1]=='u')
+            maxim=max(maxim,j-i);
+        return maxim;
+    }
+        
+};

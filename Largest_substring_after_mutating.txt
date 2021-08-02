@@ -1,0 +1,40 @@
+class Solution {
+public:
+    string maximumNumber(string num, vector<int>& change) 
+    {
+        string ans="";
+        int flag=0;
+        int j=0;
+        
+        while(j<num.length())
+        {
+            if(num[j]-'0'<change[num[j]-'0'])
+            {
+                int i=j+1;
+                num[j]=(change[num[j]-'0']+'0');
+                cout<<num[j];
+                while(i<num.length())
+                {
+                    //cout<<i<<" ";
+                    if(num[i]-'0'<=change[num[i]-'0'])
+                    {
+                        //cout <<"****";
+                        num[i]=(change[num[i]-'0']+'0');
+                        //cout<<num[i]<<" ";
+                    }
+                    else
+                    {
+                        flag=1;
+                        break;
+                    }
+                    i++;
+                }
+                if(i==num.length() || flag==1)
+                    break;
+            }
+            j++;
+        }
+        return num;
+        
+    }
+};

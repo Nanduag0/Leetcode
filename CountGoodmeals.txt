@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countPairs(vector<int>& deliciousness) 
+    {
+         int res = 0;
+        unordered_map<int, int> count;
+        int mod = 1000000007;
+        for (auto it : deliciousness) {
+            for (int j = 0; j < 22; j++) {
+                int temp = (1 << j) - it;
+                if (temp >= 0 && count[temp]) {
+                    res += count[temp];
+                }
+                res %= mod;
+            }
+            count[it]++;
+        }
+        return res;
+       
+    }
+
+};
