@@ -1,0 +1,70 @@
+class Solution {
+public:
+    int totalFruit(vector<int>& fruits)
+    {
+        map<int,int> mp;
+        int k=0;
+        map<int,int> :: iterator itr;
+        int i=0,j=0,sum=0,maxim=0;
+        while(j<fruits.size())
+        {
+            mp[fruits[j]]++;
+            if(mp.size()==3)
+            {
+               cout<<"*";
+               mp.erase(fruits[j]);
+                for(auto it : mp)
+                {
+                    sum+=it.second;
+                }
+              int val=fruits[i];
+              mp.erase(fruits[i]);
+              mp[fruits[j]]++;
+              //if(sum<=j-i)
+              maxim=max(j-i,maxim);
+              cout<<sum<<" "<<i<<" "<<j<<"\n";
+              i=j-1;
+              if(fruits[i]==val)
+              {
+                i=j-1;
+                mp.clear();
+                mp[fruits[i]]++;
+                mp[fruits[j]]++;
+                int k;
+                for(k=i-1;k>=0;k--)
+                {
+                    if(fruits[k]==fruits[i])
+                        mp[fruits[k]]++;
+                    else
+                        break;
+                }
+                  i=k+1;
+              }
+              else
+              {
+                 for(k=i-1;k>=0;k--)
+              {
+                  if(fruits[k]==fruits[i])
+                  {
+                     continue;
+                  }
+                  else
+                      break;
+              }
+              i=k+1;  
+              }
+             sum=0;
+            }
+            j++;
+        }
+        sum=0;
+        cout<<i<<" ";
+        for(auto it : mp)
+        {
+            sum+=it.second;
+        }
+        //if(sum<=j-i)
+        maxim=max(maxim,j-i);
+        return maxim;
+    }
+};

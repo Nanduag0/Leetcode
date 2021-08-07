@@ -1,0 +1,74 @@
+class Solution {
+public:
+    int minSumOfLengths(vector<int>& arr, int target)
+    {
+        
+       unordered_map<int,int> mp;
+       int n=arr.size();
+       vector<int> prefix(n,0);
+       vector<int> suffix(n,0);
+       int j=0,i=0,sum=0;
+       mp[0]=-1;
+       while(j<arr.size())
+       {
+         
+           sum+=arr[j];
+               if(mp.find(sum-target)!=mp.end())
+                   prefix[j]=j-mp[sum-target];
+           else
+               prefix[j]=INT_MAX;
+           
+              mp[sum]=j;
+           
+           j++;
+       }
+        vector<int> pref(arr.size(),0);
+        vector<int> suf(arr.size(),0); 
+        mp.clear();
+        j=n-1;
+        sum=0;
+        mp[0]=n;
+        // n-1-(n-1)
+        while(j>=0)
+        {
+          
+            sum+=arr[j];
+                if(mp.find(sum-target)!=mp.end())
+                    suffix[j]=mp[sum-target]-j;
+            else
+                suffix[j]=INT_MAX;
+            mp[sum]=j;
+            //cout<<suffix[j]<<" ";
+            j--;
+        }
+        int minim=INT_MAX ;
+        for(int i=0;i<n;i++)
+        {
+            minim=min(prefix[i],minim);
+            pref[i]=minim;
+           // cout<<pref[i]<<" ";
+        }
+       // cout<<"\n";
+        minim= INT_MAX;
+        for(int i=n-1;i>=0;i--)
+        {
+            minim=min(minim,suffix[i]);
+            suf[i]=minim;
+           // cout<<suf[i]<<" ";
+        }
+        //cout<<"\n";
+        int ans=INT_MAX;
+        for(int i=0;i<arr.size()-1;i++)
+        {
+            if(pref[i]!=INT_MAX && suf[i+1]!=INT_MAX)
+            ans=min(pref[i]+suf[i+1],ans);
+        }
+        //cout<<ans;
+        if(ans==INT_MAX)
+            return -1;
+        // max 2 2 
+        // 2   2 max 
+        
+        return ans<=n?ans:-1;
+    }
+};

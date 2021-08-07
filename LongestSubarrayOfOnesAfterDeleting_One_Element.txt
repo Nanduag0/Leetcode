@@ -1,0 +1,52 @@
+class Solution {
+public:
+    int longestSubarray(vector<int>& nums) 
+    {
+        vector<int> check;
+        int i,j=0;
+        int cnt=0,sum=0,pre=0,diff=INT_MAX,countz=0;
+        if(count(nums.begin(),nums.end(),1)==nums.size())
+            return nums.size()-1;
+        
+        while(j<nums.size())
+        {
+            if(nums[j]==1)
+            {
+                cnt++;
+            }
+            if(nums[j]==0)
+            {
+                if(cnt>0)
+                {
+                  if(countz==1 && pre!=0)
+                 {
+                   sum=max((pre+cnt),sum);
+                 }
+                else
+                    sum=max(sum,cnt);
+                    countz=0;
+                }
+                if(cnt!=0)
+                pre=cnt; 
+                cnt =0;
+                countz++;
+            }
+            j++;
+        }
+        cout<<pre<<" "<<cnt<<" ";
+            if(countz==1)
+             {
+                  sum=max(sum,(pre+cnt));
+             }
+             else if(pre!=0 && cnt==0)
+             {
+                 sum=max(sum,(pre+cnt));
+             }
+            else  if(pre==0 && cnt!=0)
+            {
+                sum=max(sum,(pre+cnt));
+            }
+        
+        return sum;
+    }
+};
