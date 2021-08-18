@@ -1,0 +1,57 @@
+class Solution {
+public:
+    struct Node
+    {
+        int data;
+       Node* prev;
+       Node(int n)
+       {
+           data=n;
+           prev=NULL;
+       }  
+    };
+   
+    vector<int> factorial(int N)
+    {
+        Node *temp=new Node(1);
+        for(int i=2;i<=N;i++)
+        {
+            multiply(temp,i);
+        }
+        string s="";
+        while(temp!=NULL)
+        {
+            s+=temp->data;
+            temp=temp->prev;
+        }
+        vector<int> v;
+        for(char ch : s)
+        {
+            v.push_back((int)ch);
+        }
+        reverse(v.begin(),v.end());
+        
+        return v;
+        
+        // code here
+    }
+    void multiply(Node* tail,int n)
+    {
+        Node *temp=tail, *prevn=tail;
+        int carry=0;
+        while(temp!=NULL)
+        {
+            int data=temp->data*n+carry;
+            temp->data=data%10;
+            carry=data/10;
+            prevn=temp;
+            temp=temp->prev;
+        }
+        while(carry!=0)
+        {
+            prevn->prev=new Node((int)carry%10);
+            carry/=10;
+            prevn=prevn->prev;
+        }
+    }
+};

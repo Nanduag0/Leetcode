@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int superPow(int a, vector<int>& b)
+    {
+     long long int curr=a;
+     long ret=1;
+     for(int i=b.size()-1;i>=0;i--)
+     {
+         int dig=b[i];
+         for(int j=0;j<dig;j++)
+         {
+             ret*=curr;
+             ret%=1337;
+         }
+         //storing for next power of 10 
+         long long newpow=1;
+         for(int i=0;i<10;i++)
+         {
+             newpow*=curr;
+             newpow%=1337;
+         }
+         curr=newpow;
+     }
+        return ret;
+        
+    }
+};
