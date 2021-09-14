@@ -1,0 +1,107 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+struct Node
+{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int x)
+    {
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+
+ 
+void binarytostring(Node* root,string &ans)
+{
+    if(root==NULL)
+    return ;
+    ans.push_back(root->data+'0');
+    if(root->left==NULL && root->right==NULL)
+    return ;
+    ans.push_back('(');
+    binarytostring(root->left,ans);
+    ans.push_back(')');
+    if(root->right!=NULL)
+    {
+        ans.push_back('(');
+        binarytostring(root->right,ans);
+        ans.push_back(')');
+    }
+
+}
+Node* createnode(int x,Node* root,queue<Node*> &que)
+{
+    Node* node=new Node(x);
+    if(root==NULL)
+    {
+        root=node;
+    }
+    else 
+    if(que.front()->left==NULL)
+     que.front()->left=node;
+    else
+    {
+      que.front()->right=node;
+      que.pop();
+    }
+    que.push(node);
+    return root;
+}
+
+void  levelorder(Node* root)
+{
+    vector<vector<int>> ans;
+    queue<Node*> que;
+    que.push(root);
+    while(!que.empty())
+    {
+        int x=que.size();
+        vector<int> vs;
+        while(x--)
+        {
+        Node *temp=que.front();
+        vs.push_back(temp->data);
+        que.pop();
+        if(temp->left!=NULL)
+        que.push(temp->left);
+        if(temp->right!=NULL)
+        que.push(temp->right);
+        }
+        ans.push_back(vs);
+    }
+    for(int  i=ans.size()-1;i>=0;i--)
+    {
+        for(int j=0;j<ans[i].size();j++)
+        {
+            cout<<ans[i][j]<<" ";
+        }
+        cout<<"\n";
+    }
+    
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> vec(n);
+    int a;
+    Node* root=NULL;
+    queue<Node*> que;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a;
+        vec[i]=a;
+        root=createnode(a,root,que);
+    }
+    Node* temp=root;
+    //levelorder(root);
+    string ans="";
+    binarytostring(root,ans);
+    cout<<ans;
+    return 0;
+}

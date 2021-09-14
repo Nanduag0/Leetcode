@@ -1,0 +1,57 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+
+int main() 
+{
+  string s;
+  cin>>s;
+  bool dp[s.length()+1][s.length()+1];
+  memset(dp,false,sizeof(dp));
+  int g=0,j,i;
+  for(int g=0;g<s.length();g++)
+  {
+      int j=g;
+      for(int i=0;j<s.length();i++)
+      {
+          if(g==0)
+          dp[i][j]=true;
+          else
+          if(g==1)
+          {
+              if(s[i]==s[j])
+              dp[i][j]=true;
+          }
+          else 
+          {
+              if(dp[i+1][j-1]==true && s[i]==s[j])
+              dp[i][j]=true;
+              else
+              dp[i][j]=false;
+          }
+          j++;
+      }
+  }
+  int str[s.length()];
+  memset(str,0,sizeof(str));
+  str[0]=0;
+  for(int i=1;i<=s.length();i++)
+  {
+      if(dp[0][i]==true)
+      str[s.length()-1]=1;
+      else
+      {
+          int minim=INT_MAX;
+          for(int j=i;j>=1;j--)
+          {
+              if(dp[j][i])
+              {
+                  minim=min(str[j-1],minim);
+              }
+          }
+          str[i]=minim+1;
+      }
+  }
+  cout<<str[s.length()-1];
+  return 0;
+}

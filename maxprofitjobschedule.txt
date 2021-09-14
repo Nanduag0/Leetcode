@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+static bool cmp(vector<int> x,vector<int> y);
+
+int main() 
+{
+  int n;
+  cin>>n;
+  vector<vector<int>> vec(n);
+  int a,b,c;
+  for(int i=0;i<n;i++)
+  {
+   cin>>a>>b>>c;
+   vec[i].push_back(a);
+   vec[i].push_back(b);
+   vec[i].push_back(c);
+  }
+  int dp[n];
+  sort(vec.begin(),vec.end(),cmp);
+  dp[0]=vec[0][2];
+  for(int i=1;i<n;i++)
+  {
+      int incl=vec[i][2];
+      int last=-1;
+      int low=0;
+      int high=i-1;
+      while(low<=high)
+      {
+          int mid=(low+high)/2;
+          if(vec[mid][1]<=vec[i][0])
+          {
+              last=mid;
+              low=mid+1;
+          }
+          else
+          {
+              high=mid-1;
+          }
+      }
+      if(last!=-1)
+      {
+          incl+=vec[last][2];
+      }
+      int excl=dp[i-1];
+      dp[i]=max(excl,incl);
+  }
+  cout<<dp[n-1];
+  return 0;
+}
+static bool cmp(vector<int> x,vector<int> y)
+{
+    return x[1]<y[1];
+
+}

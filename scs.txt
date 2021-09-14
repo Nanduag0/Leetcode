@@ -1,0 +1,73 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+int main() 
+{
+  string s;
+  string  p;
+  cin>>s;
+  cin>>p;
+  int lcs[s.length()+1][p.length()+1];
+  for(int i=0;i<=s.length();i++)
+  {
+      lcs[i][0]=0;
+  }
+  for(int j=0;j<=p.length();j++)
+  {
+      lcs[0][j]=0;
+  }
+  for(int i=1;i<=s.length();i++)
+  {
+      for(int j=1;j<=p.length();j++)
+      {
+          if(s[i-1]==p[j-1])
+          lcs[i][j]=1+lcs[i-1][j-1];
+          else
+          lcs[i][j]=max(lcs[i][j-1],lcs[i-1][j]);
+      }
+  }
+  string ans="";
+  int m=s.length()-1,n=p.length()-1;
+  while(m>0 && n>0)
+  {
+      if(s[m-1]==p[n-1])
+      {
+       ans+=s[m-1];
+       m--;
+       n--;
+      }
+      else
+      if(lcs[m-1][n]>lcs[m][n-1])
+      {
+          m--;
+      }
+      else
+      n--;
+  }
+  reverse(ans.begin(),ans.end());
+  cout<<ans<<" "<<"\n";
+  int i=0;
+  int m1=0,m2=0;
+  string res="";
+  while(i<ans.length())
+  {
+      while(s[m1]!=ans[i])
+      {
+          res+=s[m1];
+          m1++;
+      }
+      while(p[m2]!=ans[i])
+      {
+          res+=p[m2];
+          m2++;
+      }
+      res+=ans[i];
+      i++;
+      m1++;
+      m2++;
+  }
+  res+=s.substr(m1)+p.substr(m2);
+  cout<<res;
+  return 0 ;
+
+}

@@ -1,0 +1,47 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+
+int main() 
+{
+   int n;
+   int k;
+   cin>>n;
+   cin>>k;
+   int dp[n+1][k+1];
+   for(int i=0;i<=n;i++)
+   {
+       dp[i][0]=0;
+   }
+   for(int i=0;i<=n;i++)
+   {
+      dp[i][1]=1;
+   }
+   for(int i=1;i<=n;i++)
+   {
+       for(int j=1;j<=k;j++)
+       {
+           if(i==1)
+           dp[i][j]=j;
+           else
+           if(j==1)
+           dp[i][j]=1;
+           else
+           {
+               int pj=0;
+               int minim=INT_MAX;
+               for(int p=j-1;p>=0;p--)
+               {
+                   int val = max(dp[i-1][pj],dp[i][p]);
+                   minim=min(val,minim);
+                   pj++;
+               }
+               dp[i][j]=minim+1;
+           }
+       }
+   }
+   cout<<dp[n][k]<<" ";
+   return 0;
+ 
+}
+ 

@@ -1,0 +1,55 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> vec(n);
+    int a;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a;
+        vec[i]=a;
+    }
+    int sum=0,count=0;
+    cin>>sum;
+    sort(vec.begin(),vec.end());
+    for(int i=0;i<n-1;i++)
+    {
+        if(i>0 && vec[i]==vec[i-1])
+        continue;
+        int l=i+1;
+        int r=n-1;
+        while(l<=r)
+        {
+         if(vec[l]+vec[r]+vec[i]==sum)
+         {
+             cout<<vec[l]<<" "<<vec[r]<<" "<<vec[i]<<"\n";
+             count++;
+             int front=vec[l];
+             while(l<n && vec[l]==front)
+             {
+                l++;
+             }
+             int rear=vec[r];
+             while(r<n && vec[r]==rear)
+             {
+                 r--;
+             }
+            l++;
+            r--;
+         }
+         else
+         if(vec[l]+vec[r]+vec[i]<sum)
+         {
+             l++;
+         }
+         else
+         r--;
+        }
+    }
+    cout<<count<<" ";
+    return 0;
+
+}
