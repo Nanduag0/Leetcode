@@ -1,0 +1,91 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node
+{
+    int data;
+    node* pre;
+    node* next;
+    node(int x)
+    {
+        data=x;
+        pre=NULL;
+        next=NULL;
+    }
+};
+node* rotate(int count,node* head,int len);
+
+node* rotate(int count,node* head,int len)
+{
+    node* headb=head;
+    node* temp=head;
+    count=count%len;
+    for(int i=1;i<count;i++)
+    {
+      temp=temp->next;
+    }
+    node *srt=temp->next;
+    node *newsrt=temp->next;
+    temp->next=NULL;
+    while(newsrt->next!=NULL)
+    {
+        newsrt=newsrt->next;
+    }
+    newsrt->next=headb;
+    head=srt;
+    return head;
+}
+int main()
+{
+    int n;
+    cin>>n;
+    int a=0;
+    node* temp=NULL;
+    node* prev=NULL;
+    node* head=NULL;
+    node* dummy=NULL;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a;
+        if(head==NULL)
+        {
+           dummy=new node(a);
+           head=dummy;
+           head->pre=NULL;
+           head->next=NULL;
+           temp=head;
+        }
+        else
+        {
+            node *dummy =new node(a);
+            temp->next=dummy;
+            dummy->pre=temp;
+            temp=dummy;
+        }
+    }
+    temp->next=NULL;
+    node *block=head;
+    while(block!=NULL)
+    {
+        cout<<block->data<<"->";
+        block=block->next;
+    }
+    cout<<"\n";
+    int count=0;
+    cin>>count;
+    node *rear=head;
+    int len=0;
+    while(rear!=NULL)
+    {
+        len++;
+        rear=rear->next;
+    }
+    cout<<len<<" ";
+    node *ans= rotate(count,head,len);
+    while(ans!=NULL)
+    {
+        cout<<ans->data<<"->";
+        ans=ans->next;
+    }
+    return 0;
+
+}

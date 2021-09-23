@@ -1,0 +1,82 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node 
+{
+    int data;
+    node* next;
+    node(int x)
+    {
+        data=x;
+        next=NULL;
+    }
+};
+node* reverse(node* head)
+{
+    node* curr=head;
+    node* ahead=NULL;
+    node* prev=NULL;
+    while(curr!=NULL)
+    {
+     ahead=curr->next;
+     curr->next=prev;
+     prev=curr;
+     curr=ahead;
+    }
+    head=prev;
+    return head;
+}
+
+node* addone(node* head)
+{
+ node* temp=head;
+ int val=0;
+ int carry=1;
+ while(temp!=NULL)
+ {
+      val=(carry+(temp->data));
+      temp->data=val%10;
+      carry=val>9?1:0;
+      temp=temp->next;
+ }
+ if(carry)
+ {
+  temp->next=new node(carry);
+ }
+ return head;
+}
+
+int main()
+{
+   int n;
+   cin>>n;
+   int a;
+   node* dummy;
+   node* temp;
+   node* head;
+   for(int i=0;i<n;i++)
+   {
+       cin>>a;
+       if(i==0)
+       {
+        dummy=new node(a);
+        head=dummy;
+        temp=head;
+       }
+       else
+       {
+       temp->next=new node(a);
+       temp=temp->next;
+       }
+   }
+   node* head1=reverse(head);
+   node* head2=addone(head1);
+   node* ans=reverse(head2);
+   temp=ans;
+   while(temp!=NULL)
+   {
+       cout<<temp->data<<" ";
+       temp=temp->next;
+   }
+   return 0;
+
+}

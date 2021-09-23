@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h>
+int main() 
+{
+    string s,p;
+    cin>>s;
+    cin>>p;
+    int dp[s.length()+1][p.length()+1];
+    for(int i=0;i<=s.length();i++)
+    {
+        for(int  j=0;j<=p.length();j++)
+        {
+            if(i==0 || j==0)
+            dp[i][j]=0;
+        }
+    }
+    for(int i=1;i<=s.length();i++)
+    {
+        for(int j=1;j<=p.length();j++)
+        {
+            if(s[i-1]==p[j-1])
+            {
+                dp[i][j]=1+dp[i-1][j-1];
+            }
+            else
+            dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+        }
+    }
+    cout<<dp[s.length()][p.length()];
+    int  m=s.length(),n=p.length();
+    string ans="";
+    while(m>0 && n>0)
+    {
+        if(s[m-1]==p[n-1])
+        {
+         ans+=s[m-1];
+         m--;
+         n--;
+        }
+        else
+       if(dp[m-1][n]>dp[m][n-1])
+       {
+        m--;
+       }
+       else
+       n--;
+    }
+    reverse(ans.begin(),ans.end());
+    cout<<"\n";
+    cout<<ans<<" ";
+    return 0;
+}

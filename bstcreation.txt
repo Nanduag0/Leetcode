@@ -1,0 +1,117 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node 
+{
+    int data;
+    node* left;
+    node* right;
+    node(int x)
+    {
+        data=x;
+        left=NULL;
+        right=NULL;
+    }
+};
+class Solution 
+{
+    public : 
+    node* deletenode(node* root,int key)
+{
+    if(root==NULL)
+    return root;
+    if(key>root->data)
+    {
+        root->right=deletenode(root->right,key);
+    }
+   else
+   if(key<root->data)
+   {
+       root->left=deletenode(root->left,key);
+   }
+   else
+   {
+       if(root->left==NULL && root->right==NULL)
+       root=NULL;
+       else
+       if(root->left)
+       {
+           root->data=inorderpredecesoor(root);
+           root->left=deletenode(root->left,root->data);
+       }
+       else
+       {
+           root->data=inordersucssesor(root);
+           root->right=deletenode(root->right,root->data);
+       }
+   }
+ return root;
+}
+ node* insertvalue(int value,node* root)
+{
+    if(root==NULL)
+    {
+        return new node(value);
+    }
+    else
+    if(value>root->data)
+    {
+        root->right=insertvalue(value,root->right);
+    }
+    else
+    root->left=insertvalue(value,root->left);
+    return root;
+}
+int  inordersucssesor(node* temp)
+{
+ temp=temp->right;
+ while(temp->left)
+ {
+     temp=temp->left;
+ }
+ return temp->data;
+
+}
+ int  inorderpredecesoor(node* temp)
+{
+    temp=temp->left;
+    while(temp->right)
+    {
+        temp=temp->right;
+    }
+    return temp->data;
+
+}
+void inorder(node* root)
+{
+    if(root==NULL)
+    return;
+    inorder(root->left);
+    cout<<root->data;
+    inorder(root->right);
+    return;
+}
+};
+
+int main()
+{
+    int n,a;
+    cin>>n;
+    int val;
+    node* root=NULL;
+    vector<int> v(n);
+    Solution ob;
+    for(int i=0;i<n;i++)
+    {
+        cin>>a;
+        v[i]=a;
+        root=ob.insertvalue(a,root);
+    }
+    ob.inorder(root);
+    int del;
+    cin>>del;
+    ob.deletenode(root,del);
+    cout<<"\n";
+    ob.inorder(root);
+    return 0;
+
+}

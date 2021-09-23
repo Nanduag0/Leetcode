@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+#include<bits/stdc++.h> 
+int main() 
+{
+   int n;
+   cin>>n;
+   vector<int> price(n);
+   int b ;
+   for(int i=0;i<n;i++)
+   {
+       cin>>b;
+       price[i]=b;
+   }
+   int dp[n];
+   dp[n-1]=0;
+   int maxim=price[n-1];
+   for(int i=n-2;i>=0;i--)
+   {
+       
+       dp[i]=max(dp[i+1],maxim-price[i]);
+       if(price[i]>maxim)
+       {
+           maxim=price[i];
+       }
+   }
+   int minim=price[0];
+   int ans=0;
+   for(int i=1;i<n;i++)
+   {
+       if(price[i]<minim)
+       {
+           minim=price[i];
+       }
+       dp[i]=(dp[i]+(price[i]-minim),dp[i]);
+       ans=max(ans,dp[i]);
+   }
+   cout<<ans<<" ";
+   return 0;
+
+  
+}
